@@ -5,9 +5,16 @@ namespace TVNT
 {
     public class ArrowNormalAttack : WeaponController
     {
+        float angle;
+        Rigidbody rid;
         void Start()
         {
-            GetComponent<Rigidbody>().AddForce(transform.forward * speed);
+            //rid = GetComponent<Rigidbody>();
+            //angle = Mathf.Atan2(rid.velocity.y, rid.velocity.x);
+            //gameObject.transform.localEulerAngles = new Vector3(0, 0, (angle * 180) / Mathf.PI);
+            transform.LookAt(;
+            GetComponent<Rigidbody>().AddForce(transform.forward * 150f);
+
         }
         private void OnTriggerEnter(Collider other)
         {
