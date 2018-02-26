@@ -61,17 +61,19 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 				return i;
 			}
 		}
-
 		return -1;
 	}
 
 	public void OnEndDrag(PointerEventData eventData) {
-		// If the prefab instance is active after dragging stopped, it means
-		// it's in the arena so (for now), just drop it in.
+        // If the prefab instance is active after dragging stopped, it means
+        // it's in the arena so (for now), just drop it in.
+        GameObject clone;
 		if (hoverPrefab.activeSelf) {
-			Instantiate (prefab, hoverPrefab.transform.position, Quaternion.identity);
+			clone = Instantiate (prefab, hoverPrefab.transform.position, Quaternion.identity);
+            
+            clone.SetActive(true);
 		}
-
+        
 		// Then set it to inactive ready for the next drag!
 		hoverPrefab.SetActive (false);
 	}
