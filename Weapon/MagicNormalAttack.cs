@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace TVNT
 {
-    public class ArrowNormalAttack : WeaponController
+    public class MagicNormalAttack : WeaponController
     {
         void Update()
         {
-            transform.Translate(new Vector3(10, 2, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(10, 3, 0) * Time.deltaTime);
             //빗나갔을 경우 2초 후 삭제
             GameObject.Destroy(gameObject, 2.0f);
         }
@@ -17,7 +17,7 @@ namespace TVNT
         {
             if (other.tag == "Monster")
             {
-                Debug.Log("arrow attack!!");
+                Debug.Log("magic attack!!");
                 if (other.GetComponent<TVNTCharacterController>().lives > 0)
                 {
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
@@ -31,5 +31,6 @@ namespace TVNT
                 GameObject.Destroy(gameObject);
             }
         }
+
     }
 }

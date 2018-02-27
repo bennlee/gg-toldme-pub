@@ -16,7 +16,9 @@ namespace TVNT
 			if (other.tag == "Monster") {
                 if (other.GetComponent<TVNTCharacterController>().lives > 0)
                 {
-                    Debug.Log("sword attack!!!!");
+                    Debug.Log("sword normal attack");
+                    //particle effect
+
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
                 }
                 else

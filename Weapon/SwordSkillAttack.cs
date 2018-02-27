@@ -8,12 +8,14 @@ namespace TVNT
     public class SwordSkillAttack : WeaponController
     {
 
+
         void OnTriggerEnter(Collider other)
         {
             Debug.Log(other.name);
             if (other.tag == "Monster")
             {
                 Debug.Log("sword attack!!");
+
                 if (other.GetComponent<TVNTCharacterController>().lives > 0)
                 {
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
