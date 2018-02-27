@@ -14,9 +14,15 @@ namespace TVNT
 		void OnTriggerEnter (Collider other)
 		{
 			if (other.tag == "Monster") {
-				Debug.Log ("sword attack!!!!");
-				other.GetComponent<TVNTCharacterController> ().lives -= damage;
-				GameObject.Destroy (gameObject);
+                if (other.GetComponent<TVNTCharacterController>().lives > 0)
+                {
+                    Debug.Log("sword attack!!!!");
+                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                }
+                else
+                {
+                    other.gameObject.SetActive(false);
+                }
 			}
 		}
 	}
