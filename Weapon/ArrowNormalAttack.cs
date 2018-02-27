@@ -32,24 +32,23 @@ namespace TVNT
     {
         //        float angle;
         //        Rigidbody rid;
-        bool isPass = true;
+        //bool isPass = true;
         void Start()
         {
             GetComponent<Rigidbody>().AddForce(transform.forward * 150f);
         }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (isPass)
-            {
-                if (other.tag == "Monster")
-                {
-                    Debug.Log("bow attack!!!!");
-                    //attack
-                    other.GetComponent<TVNTCharacterController>().lives -= damage;
-                    GameObject.Destroy(gameObject);
-                    isPass = false;
-                }
-            }
+			if (other.GetComponent<TVNTCharacterController>().lives > 0)
+			{
+				other.GetComponent<TVNTCharacterController>().lives -= damage;
+				other.GetComponent<MonsterAIController>().threatenTime = 0;
+			}
+			else
+			{
+				other.GetComponent<MonsterAIController>().CharacterDead();
+			}
         }
     }
 }
