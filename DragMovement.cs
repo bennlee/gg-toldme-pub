@@ -5,7 +5,7 @@ using System.Collections;
 
 public class DragMovement : MonoBehaviour
 {
-    int speed = 10;
+    int speed = 30;
     // Use this for initialization
     void Start()
     {
@@ -21,6 +21,6 @@ public class DragMovement : MonoBehaviour
         float keyHorizontal = Input.GetAxis("Horizontal");
         float keyVertical = Input.GetAxis("Vertical");
         transform.Translate(Vector3.right * speed * Time.smoothDeltaTime * keyHorizontal, Space.World);
-        transform.Translate(Vector3.up * speed * Time.smoothDeltaTime * keyVertical, Space.World);
+        transform.Translate(Vector3.forward * speed * Time.smoothDeltaTime * keyVertical, Space.World);
     }
 }

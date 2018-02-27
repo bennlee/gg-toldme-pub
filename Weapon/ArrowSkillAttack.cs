@@ -11,12 +11,21 @@ namespace TVNT
 			transform.Translate (new Vector3(10,0,0) * Time.deltaTime);
 		}
 
+		GameObject passMonster;
+
 		void OnTriggerEnter (Collider other)
 		{
-			Debug.Log (other.name);
-			if (other.tag == "Smashable") {
-				Debug.Log ("bow attack!!!!");
-				other.GetComponent<TVNTCharacterController> ().lives -= damage;
+			if (other.tag == "Monster" && passMonster != other.gameObject) {
+                if( other.GetComponent<TVNTCharacterController>().lives >0)
+                {
+                    passMonster = other.gameObject;
+                    Debug.Log("bow skill attack!!!!");
+                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                }
+                else
+                {
+                    other.GetComponent<MonsterAIController>().CharacterDead();
+                }
 			}
 		}
 	}
