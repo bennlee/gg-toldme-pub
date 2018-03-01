@@ -25,7 +25,7 @@ namespace TVNT {
 
 			base.Start ();
 		}
-
+		
 		void Update () {
 			if (activate && Time.timeScale > 0 && target) {
 				if (idle && skipTurn == false) {
@@ -152,15 +152,12 @@ namespace TVNT {
 				mySpawnPoint.activeSpawnedEnemies.Remove (transform);
 			}
 		}
-        //protected ->public
-		public override void LifeLost (int currentLives) {
+
+		protected override void LifeLost (int currentLives) {
 			base.LifeLost (currentLives);
-            Debug.Log(this.name + " : " + this.lives + "Lives left");
 		}
 
-
-        //protected -> public
-		public override void CharacterDead () {
+		protected override void CharacterDead () {
 			base.CharacterDead ();
 		}
 	}

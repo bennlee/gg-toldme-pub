@@ -155,12 +155,12 @@ namespace TVNT {
 			}
 		}
 
-		public override void LifeLost (int currentLives) {
+		protected override void LifeLost (int currentLives) {
 			TVNTManager.instance.PlayerLifeLost (currentLives);
 			base.LifeLost (currentLives);
 		}
 
-		public override void CharacterDead () {
+		protected override void CharacterDead () {
 			TVNTManager.instance.PlayerDead ();
 			base.CharacterDead ();
 		}
