@@ -17,7 +17,7 @@ namespace TVNT
         {
             if (other.tag == "Monster")
             {
-                Debug.Log("arrow attack!!");
+                //Debug.Log("arrow attack!!");
                 if (other.GetComponent<TVNTCharacterController>().lives > 0)
                 {
                     other.GetComponent<TVNTCharacterController>().lives -= damage;

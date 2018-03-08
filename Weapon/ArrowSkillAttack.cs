@@ -19,13 +19,13 @@ namespace TVNT
                 if( other.GetComponent<TVNTCharacterController>().lives >0)
                 {
                     passMonster = other.gameObject;
-                    Debug.Log("bow skill attack!!!!");
+                    //Debug.Log("bow skill attack!!!!");
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
                 }
                 else
                 {
                     //other.GetComponent<MonsterAIController>().CharacterDead();
-                    other.gameObject.SetActive(false);
+                    //other.gameObject.SetActive(false);
                 }
 			}
 		}
