@@ -8,7 +8,7 @@ namespace TVNT
     {
         void Update()
         {
-            transform.Translate(new Vector3(10, 4, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(10, 0, 0) * Time.deltaTime);
             //빗나갔을 경우 2초 후 삭제
             GameObject.Destroy(gameObject, 2.0f);
         }
