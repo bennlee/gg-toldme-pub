@@ -8,7 +8,6 @@ namespace TVNT
 	{
 
 		void Update(){
-            //transform.LookAt(target.transform);
 			transform.Translate (new Vector3(10,0,0) * Time.deltaTime);
 		}
 
