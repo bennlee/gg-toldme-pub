@@ -19,7 +19,7 @@ public class AttackController : MonoBehaviour {
 
    void Shoot(){
 
-      hero.transform.GetComponent<HeroController>().Shoot();
+      //hero.transform.GetComponent<HeroController>().Shoot();
 
    }
 
