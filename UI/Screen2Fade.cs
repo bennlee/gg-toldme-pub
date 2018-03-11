@@ -20,6 +20,6 @@ public class Screen2Fade : MonoBehaviour {
 		canvasGroup.interactable = false;
 		yield return null;
 
-		CanvasManager.instance.screen1Active();
+		CanvasManager.instance.screen3Active();
 	}
 }
