@@ -10,7 +10,6 @@ namespace TVNT
         {
             transform.Translate(new Vector3(10, 0, 0) * Time.deltaTime);
             //빗나갔을 경우 2�?????��
-            GameObject.Destroy(gameObject, 2.0f);
         }
 
         void OnTriggerEnter(Collider other)
