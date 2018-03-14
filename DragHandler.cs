@@ -11,7 +11,7 @@ namespace TVNT
         GameObject hoverPrefab;
 
         public GameObject monsterController;
-
+        int mapLayer;
         // Use this for initialization
         void Start()
         {
@@ -20,6 +20,7 @@ namespace TVNT
             //RemoveScriptsFromPrefab ();
             AdjustPrefabAlpha();
             hoverPrefab.SetActive(false);
+            mapLayer = LayerMask.GetMask("Map");
         }
 
         //void RemoveScriptsFromPrefab() {
@@ -78,7 +79,18 @@ namespace TVNT
             {
                 if (hits[i].transform.name.Equals("Base"))
                 {
-                    return i;
+                    RaycastHit minimapRay;
+                    if (Physics.Raycast(hits[i].transform.position + new Vector3(0, 70, 0), hits[i].transform.position + new Vector3(0, 100, 0), out minimapRay, mapLayer))
+                    { 
+                        if (minimapRay.transform.tag == "Map")
+                        {
+                            if (!minimapRay.transform.gameObject.GetComponent<MinimapCheck>().isHero)
+                            {
+                                return i;
+                            }
+                        }
+                    }
+                    //return i;
                 }
             }
             return -1;
