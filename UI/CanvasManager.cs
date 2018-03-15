@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour {
 
@@ -16,6 +17,9 @@ public class CanvasManager : MonoBehaviour {
     public CanvasGroup screen2;
     public CanvasGroup screen3;
     public CanvasGroup screen4;
+
+    public Text startText;
+    bool flag = true;
 
     void Awake(){
         if(instance == null){
@@ -37,6 +41,25 @@ public class CanvasManager : MonoBehaviour {
 
         screen4.alpha = 0;
         screen4_canvas.enabled = false;
+    }
+    
+    void Start()
+    {
+        InvokeRepeating("ChangeColor", 2, 2);
+    }
+
+    void ChangeColor()
+    {
+        if (flag)
+        {
+            startText.color = Color.black;
+            flag = false;
+        }
+        else
+        {
+            startText.color = Color.white;
+            flag = true;
+        }
     }
 
     public void screen1Active(){
