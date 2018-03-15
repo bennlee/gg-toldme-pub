@@ -45,7 +45,7 @@ public class CanvasManager : MonoBehaviour {
     
     void Start()
     {
-        InvokeRepeating("ChangeColor", 2, 2);
+        //InvokeRepeating("ChangeColor", 2, 2);
     }
 
     void ChangeColor()
