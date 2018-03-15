@@ -1,11 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Screen1Fade : MonoBehaviour {
 
+    int startCount;
+
+    void Awake()
+    {
+        startCount = PlayerPrefs.GetInt("StartCount");
+        Debug.Log(startCount + " 번째 실행입니다.");
+    }
+
     public void Fade(){
-        StartCoroutine(DoFade());
+        if(startCount >= 1)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            StartCoroutine(DoFade());
+        }
     }
 
     IEnumerator DoFade()
