@@ -56,7 +56,11 @@ namespace TVNT
             // Debug.Log(eventData);
             RaycastHit[] hits;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            hits = Physics.RaycastAll(ray, 150f);
+            hits = Physics.RaycastAll(ray, 150f, 1<<8);
+            //Debug.DrawLine(ray.origin, ray.direction, Color.blue, 150f);
+
+            //hits = Physics.RaycastAll(Input.mousePosition + new Vector3(0, 30, 0), Input.mousePosition + new Vector3(0, -20, 0), 150f);
+            //Debug.DrawLine(Input.mousePosition + new Vector3(0, 30, 0), Input.mousePosition + new Vector3(0, -20, 0));
             if (hits != null && hits.Length > 0)
             {
                 int terrainCollderQuadIndex = GetTerrainColliderQuadIndex(hits);
@@ -80,7 +84,7 @@ namespace TVNT
                 if (hits[i].transform.name.Equals("Base"))
                 {
                     RaycastHit minimapRay;
-                    if (Physics.Raycast(hits[i].transform.position + new Vector3(0, 70, 0), hits[i].transform.position + new Vector3(0, 100, 0), out minimapRay, mapLayer))
+                    if (Physics.Raycast(hits[i].transform.position + new Vector3(0, -20, 0), hits[i].transform.position + new Vector3(0, -100, 0), out minimapRay, mapLayer))
                     { 
                         if (minimapRay.transform.tag == "Map")
                         {

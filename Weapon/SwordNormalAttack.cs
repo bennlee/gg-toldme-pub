@@ -18,7 +18,8 @@ namespace TVNT
                 }
                 else
                 {
-                    other.gameObject.SetActive(false);
+                    other.GetComponent<MonsterAIController>().CharacterDead();
+                    //other.gameObject.SetActive(false);
                 }
 			}
             GameObject.Destroy(gameObject);
