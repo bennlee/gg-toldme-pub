@@ -18,12 +18,12 @@ public class DragMovement : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             GetComponent<Transform>().position =
-                new Vector3(transform.position.x, transform.position.y - .3f, transform.position.z+.2f);
+                new Vector3(transform.position.x, transform.position.y - 1.0f, transform.position.z+.4f);
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             GetComponent<Transform>().position =
-                new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z - .2f);
+                new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z - .4f);
         }
         MoveObject();
     }
