@@ -4,22 +4,25 @@ using UnityEngine.EventSystems;
 
 namespace TVNT
 {
-
-    public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class MonsterSelect : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public GameObject prefab;
-        GameObject hoverPrefab;
-
         public GameObject monsterController;
         int mapLayer;
+
+        public GameObject prefab;
+        public GameObject hoverPrefab;
+
+
+        public bool isMonsterSelected;
+
         // Use this for initialization
         void Start()
         {
             monsterController = GameObject.FindGameObjectWithTag("MonsterController");
-            hoverPrefab = Instantiate(prefab);
+            //hoverPrefab = Instantiate(prefab);
             //RemoveScriptsFromPrefab ();
-            AdjustPrefabAlpha();
-            hoverPrefab.SetActive(false);
+            //AdjustPrefabAlpha();
+            //hoverPrefab.SetActive(false);
             mapLayer = LayerMask.GetMask("Map");
         }
 
@@ -49,31 +52,35 @@ namespace TVNT
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
             // Debug.Log("Beginning drag");
+            isMonsterSelected = true;
+            hoverPrefab = Instantiate(prefab);
+            hoverPrefab.SetActive(false);
+
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            // Debug.Log(eventData);
-            RaycastHit[] hits;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            hits = Physics.RaycastAll(ray, 150f, 1<<8);
-            //Debug.DrawLine(ray.origin, ray.direction, Color.blue, 150f);
+            //// Debug.Log(eventData);
+            //RaycastHit[] hits;
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //hits = Physics.RaycastAll(ray, 150f, 1 << 8);
+            ////Debug.DrawLine(ray.origin, ray.direction, Color.blue, 150f);
 
-            //Debug.DrawLine(Input.mousePosition + new Vector3(0, 30, 0), Input.mousePosition + new Vector3(0, -20, 0));
-            if (hits != null && hits.Length > 0)
-            {
-                int terrainCollderQuadIndex = GetTerrainColliderQuadIndex(hits);
-                if (terrainCollderQuadIndex != -1)
-                {
-                    hoverPrefab.transform.position = hits[terrainCollderQuadIndex].transform.position + new Vector3(0, 2, 0);
-                    hoverPrefab.SetActive(true);
-                    // Debug.Log (hits [terrainCollderQuadIndex].point);
-                }
-                else
-                {
-                    hoverPrefab.SetActive(false);
-                }
-            }
+            ////Debug.DrawLine(Input.mousePosition + new Vector3(0, 30, 0), Input.mousePosition + new Vector3(0, -20, 0));
+            //if (hits != null && hits.Length > 0)
+            //{
+            //    int terrainCollderQuadIndex = GetTerrainColliderQuadIndex(hits);
+            //    if (terrainCollderQuadIndex != -1)
+            //    {
+            //        hoverPrefab.transform.position = hits[terrainCollderQuadIndex].transform.position + new Vector3(0, 2, 0);
+            //        hoverPrefab.SetActive(true);
+            //        // Debug.Log (hits [terrainCollderQuadIndex].point);
+            //    }
+            //    else
+            //    {
+            //        hoverPrefab.SetActive(false);
+            //    }
+            //}
         }
 
         int GetTerrainColliderQuadIndex(RaycastHit[] hits)
@@ -84,7 +91,7 @@ namespace TVNT
                 {
                     RaycastHit minimapRay;
                     if (Physics.Raycast(hits[i].transform.position + new Vector3(0, -20, 0), hits[i].transform.position + new Vector3(0, -100, 0), out minimapRay, mapLayer))
-                    { 
+                    {
                         if (minimapRay.transform.tag == "Map")
                         {
                             if (!minimapRay.transform.gameObject.GetComponent<MinimapCheck>().isHero)
@@ -112,7 +119,10 @@ namespace TVNT
             }
 
             // Then set it to inactive ready for the next drag!
-            hoverPrefab.SetActive(false);
+            // hoverPrefab.SetActive(false);
+            Destroy(hoverPrefab);
+            isMonsterSelected = false;
+            
         }
     }
 }
