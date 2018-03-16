@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TVNT
 {
@@ -22,96 +23,74 @@ namespace TVNT
             EASTEREGGS                      //이스터에그
 
         };
+
         public SpeechType currentSpeechType;
 
-
-        public List<string> DBHeroOutOfDungeon = new List<string>();
-        public List<string> DBHeroEntranceDungeon = new List<string>();
-        public List<string> DBHeroFight = new List<string>();
-        public List<string> DBHeroDead = new List<string>();
-        public List<string> DBHeroTouch = new List<string>();
-        public List<string> DBHeroDecideRoute = new List<string>();
-        public List<string> DBHeroInFrontOfDoor = new List<string>();
-        public List<string> DBHeroMeetsFather = new List<string>();
-        public List<string> DBHeroChat = new List<string>();
-        public List<string> DBHeroEncounterEnemy = new List<string>();
-        public List<string> DBFamily = new List<string>();
-        public List<string> DBEasterEggs = new List<string>();
-
-        public GameObject textMesh;
-
+        List<string> DBHeroOutOfDungeon = new List<string>();
+        List<string> DBHeroEntranceDungeon = new List<string>();
+        List<string> DBHeroFight = new List<string>();
+        List<string> DBHeroDead = new List<string>();
+        List<string> DBHeroTouch = new List<string>();
+        List<string> DBHeroDecideRoute = new List<string>();
+        List<string> DBHeroInFrontOfDoor = new List<string>();
+        List<string> DBHeroMeetsFather = new List<string>();
+        List<string> DBHeroChat = new List<string>();
+        List<string> DBHeroEncounterEnemy = new List<string>();
+        List<string> DBFamily = new List<string>();
+        List<string> DBEasterEggs = new List<string>();
         
-        //public GameObject parentHero;
+        string currentText;
 
-        public string currentText;
+        float speechBubbleDestroyTime = 2.0f;
 
-        public float speechBubbleDestroyTime = 2.0f;
-        //default position & rotation
-        //안써도 될듯(오히려 쓰면 월드좌표계로 이상하게됨)
-        //public Vector3 popUpPosition = new Vector3(0, 6, 0);
-        public Quaternion popUpRotation = Quaternion.Euler(new Vector3(90, 0, 0));
-        
-        
-
-        public void Speech()
+        //********************************************************************************
+        //--------------------------------SPEECH METHOD-----------------------------------
+        //********************************************************************************
+        void Speech()
         {
             switch (currentSpeechType)
             {
                 case SpeechType.HEROOUTOFDUNGEON:
-                    HeroOutOfDungeon();
+                    currentText = DBHeroOutOfDungeon[Random.Range(0, DBHeroOutOfDungeon.Count)];
                     break;
                 case SpeechType.HEROENTRANCEDUNGEON:
-                    HeroEntranceDungeon();
+                    currentText = DBHeroEntranceDungeon[Random.Range(0, DBHeroEntranceDungeon.Count)];
                     break;
                 case SpeechType.HEROFIGHT:
-                    HeroFight();
+                    currentText = DBHeroFight[Random.Range(0, DBHeroFight.Count)];
                     break;
                 case SpeechType.HERODEAD:
-                    HeroDead();
+                    currentText = DBHeroDead[Random.Range(0, DBHeroDead.Count)];
                     break;
                 case SpeechType.HEROTOUCH:
-                    HeroTouch();
+                    currentText = DBHeroTouch[Random.Range(0, DBHeroTouch.Count)];
                     break;
                 case SpeechType.HERODECIDEROUTE:
-                    HeroDecideRoute();
+                    currentText = DBHeroDecideRoute[Random.Range(0, DBHeroDecideRoute.Count)];
                     break;
                 case SpeechType.HEROINFRONTOFDOOR:
-                    HeroInFrontOfDoor();
+                    currentText = DBHeroInFrontOfDoor[Random.Range(0, DBHeroInFrontOfDoor.Count)];
                     break;
                 case SpeechType.HEROMEETSFATHER:
-                    HeroMeetsFather();
+                    currentText = DBHeroMeetsFather[Random.Range(0, DBHeroMeetsFather.Count)];
                     break;
                 case SpeechType.HEROCHAT:
-                    HeroChat();
+                    currentText = DBHeroChat[Random.Range(0, DBHeroChat.Count)];
                     break;
                 case SpeechType.HEROENCOUNTERENEMY:
-                    HeroEncounterEnemy();
+                    currentText = DBHeroEncounterEnemy[Random.Range(0, DBHeroEncounterEnemy.Count)];
                     break;
                 case SpeechType.FAMILY:
-                    Family();
+                    currentText = DBFamily[Random.Range(0, DBFamily.Count)];
                     break;
                 case SpeechType.EASTEREGGS:
-                    EasterEggs();
+                    currentText = DBEasterEggs[Random.Range(0, DBEasterEggs.Count)];
                     break;
             }
+
+            transform.GetComponent<TextMesh>().text = currentText;
         }
-
-        public void SetSpeechType()
-        {
-
-        }
-
-
-       
-
-        //public void GetParentHero()
-        //{
-        //    //parentHero = this.gameObject.GetComponentInParent<HeroController>().
-        //    parentHero = this.gameObject;
-        //}
-
-
-
+        
         void Awake()
         {
             SetHeroOutOfDungeon();
@@ -126,9 +105,6 @@ namespace TVNT
             SetHeroEncounterEnemy();
             SetFamily();
             SetEasterEggs();
-
-            //임시로 일단 용사 혼잣말 만
-            currentSpeechType = SpeechType.HEROCHAT;
         }
 
         // Use this for initialization
@@ -140,112 +116,12 @@ namespace TVNT
         // Update is called once per frame
         void Update()
         {
-
+            transform.eulerAngles = new Vector3(60, 0, 0);
         }
-
-
-
-
-        //********************************************************************************
-        //--------------------------------SPEECH METHOD-----------------------------------
-        //********************************************************************************
-        public void HeroOutOfDungeon()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroOutOfDungeon[Random.Range(0, DBHeroOutOfDungeon.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-            Destroy(currentTextMesh, speechBubbleDestroyTime);
-        }
-        public void HeroEntranceDungeon()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroEntranceDungeon[Random.Range(0, DBHeroEntranceDungeon.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-            Destroy(currentTextMesh, speechBubbleDestroyTime);
-        }
-        public void HeroFight()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroFight[Random.Range(0, DBHeroFight.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-            Destroy(currentTextMesh, speechBubbleDestroyTime);
-        }
-        public void HeroDead()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroDead[Random.Range(0, DBHeroDead.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-            Destroy(currentTextMesh, speechBubbleDestroyTime);
-        }
-        public void HeroTouch()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroTouch[Random.Range(0, DBHeroTouch.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-            Destroy(currentTextMesh, speechBubbleDestroyTime);
-        }
-        public void HeroDecideRoute()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroDecideRoute[Random.Range(0, DBHeroDecideRoute.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-        }
-        public void HeroInFrontOfDoor()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroInFrontOfDoor[Random.Range(0, DBHeroInFrontOfDoor.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-        }
-        public void HeroMeetsFather()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroMeetsFather[Random.Range(0, DBHeroMeetsFather.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-        }
-        public void HeroChat()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroChat[Random.Range(0, DBHeroChat.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-            Destroy(currentTextMesh, speechBubbleDestroyTime);
-        }
-        public void HeroEncounterEnemy()
-        {
-            GameObject currentTextMesh;
-            currentText = DBHeroEncounterEnemy[Random.Range(0, DBHeroEncounterEnemy.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-        }
-        public void Family()
-        {
-            GameObject currentTextMesh;
-            currentText = DBFamily[Random.Range(0, DBFamily.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-        }
-        public void EasterEggs()
-        {
-            GameObject currentTextMesh;
-            currentText = DBEasterEggs[Random.Range(0, DBEasterEggs.Count)];
-            currentTextMesh = Instantiate(textMesh, gameObject.transform.position, gameObject.transform.rotation * popUpRotation, gameObject.transform) as GameObject;
-            currentTextMesh.GetComponent<TextMesh>().text = currentText;
-        }
-        
-
 
         //********************************************************************************
         //-----------------------------------CHAT DB--------------------------------------
         //********************************************************************************
-
         void SetHeroOutOfDungeon()
         {
             DBHeroOutOfDungeon.Add("다녀오겟소!");
