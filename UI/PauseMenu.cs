@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour {
 
     public bool GameIsPaused = false;
 
+    public GameObject gameOverUI;
     public GameObject pauseMenuUI;
     public GameObject topPanel;
     public GameObject downPanel;
@@ -39,13 +40,19 @@ public class PauseMenu : MonoBehaviour {
         
     }
     
-    public void LoadMenu()
+    public void Reload()
     {
-        SceneManager.LoadScene("Menu");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(3);
     }
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("World");
+        Time.timeScale = 1f;
+        //transform.GetComponent<GameOverMenu>().swordCount += 1;
+        pauseMenuUI.SetActive(false);
+        gameOverUI.SetActive(true);
+        gameOverUI.GetComponent<Animator>().SetTrigger("GameOver");
+
     }
 }
