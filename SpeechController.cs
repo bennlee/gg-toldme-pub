@@ -122,7 +122,7 @@ namespace TVNT
         // Update is called once per frame
         void Update()
         {
-            if (mainCamera.transform.position.y <= 70)
+            if (mainCamera.transform.position.y <= 55)
             {
                 transform.GetComponent<MeshRenderer>().enabled = true;
             }

@@ -10,7 +10,6 @@ public class Screen1Fade : MonoBehaviour {
     void Awake()
     {
         startCount = PlayerPrefs.GetInt("StartCount");
-        Debug.Log(startCount + " 번째 실행입니다.");
     }
 
     public void Fade(){
