@@ -11,10 +11,16 @@ namespace TVNT
         {
             if (other.tag == "Player")
             {
-                if (other.GetComponent<TVNTCharacterController>().lives > 0)
+                if (other.GetComponent<TVNTCharacterController>().lives >= 5)
                 {
                     //Debug.Log("Normal attack.");
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    GameObject.Destroy(gameObject);
+                }
+                else if (other.GetComponent<TVNTCharacterController>().lives < 5 && other.GetComponent<TVNTCharacterController>().lives > 2)
+                {
+                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    other.GetComponent<HeroController>().SetSituation(HeroController.Situation.HERODEAD);
                     GameObject.Destroy(gameObject);
                 }
                 else

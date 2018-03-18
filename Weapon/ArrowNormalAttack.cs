@@ -17,10 +17,16 @@ namespace TVNT
             if (other.tag == "Monster")
             {
                 //Debug.Log("arrow attack!!");
-                if (other.GetComponent<TVNTCharacterController>().lives > 0)
+                if (other.GetComponent<TVNTCharacterController>().lives >= 5)
                 {
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
                     other.GetComponent<MonsterAIController>().threatenTime = 0;
+                }
+                if (other.GetComponent<TVNTCharacterController>().lives < 5 && other.GetComponent<TVNTCharacterController>().lives > 2)
+                {
+                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    other.GetComponent<MonsterAIController>().threatenTime = 0;
+                    other.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEAD);
                 }
                 else
                 {

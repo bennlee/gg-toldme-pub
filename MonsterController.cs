@@ -28,6 +28,7 @@ namespace TVNT
             monsterList[recycleCount].name = monster.name + deployCount;
             deployCount++;
             monsterList[recycleCount].SetActive(true);
+            monsterList[recycleCount].GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
         }
 
         //public void DeactivateMonster(GameObject monster)

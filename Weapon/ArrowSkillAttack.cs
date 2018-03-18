@@ -16,10 +16,18 @@ namespace TVNT
 		void OnTriggerEnter (Collider other)
 		{
 			if (other.tag == "Monster" && passMonster != other.gameObject) {
-                if( other.GetComponent<TVNTCharacterController>().lives >0)
+                if( other.GetComponent<TVNTCharacterController>().lives >= 5)
                 {
                     passMonster = other.gameObject;
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    other.GetComponent<MonsterAIController>().threatenTime = 0;
+                }
+                else if (other.GetComponent<TVNTCharacterController>().lives < 5 && other.GetComponent<TVNTCharacterController>().lives > 2)
+                {
+                    passMonster = other.gameObject;
+                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    other.GetComponent<MonsterAIController>().threatenTime = 0;
+                    other.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEAD);
                 }
                 else
                 {

@@ -20,8 +20,11 @@ namespace TVNT
             HEROCHAT,                       //용사 혼잣말
             HEROENCOUNTERENEMY,             //용사 적 조우
             FAMILY,                         //용사의 가족
-            EASTEREGGS                      //이스터에그
-
+            EASTEREGGS,                     //이스터에그
+            MONSTERCHAT,                    //몬스터 혼잣말
+            MONSTERENCOUNTERHERO,           //몬스터 용사 만났을 때
+            MONSTERDEPLOY,                  //몬스터 배치될 때
+            MONSTERDEAD                     //몬스터 죽을 때
         };
 
         List<string> DBHeroOutOfDungeon = new List<string>();
@@ -36,7 +39,12 @@ namespace TVNT
         List<string> DBHeroEncounterEnemy = new List<string>();
         List<string> DBFamily = new List<string>();
         List<string> DBEasterEggs = new List<string>();
-        
+        List<string> DBMonsterChat = new List<string>();
+        List<string> DBMonsterEncounterHero = new List<string>();
+        List<string> DBMonsterDeploy = new List<string>();
+        List<string> DBMonsterDead = new List<string>();
+
+
         string currentText;
         float speechBubbleDestroyTime = 2.0f;
         public SpeechType currentSpeechType;
@@ -71,6 +79,55 @@ namespace TVNT
                     return SpeechType.FAMILY;
                 case HeroController.Situation.EASTEREGGS:
                     return SpeechType.EASTEREGGS;
+                case HeroController.Situation.MONSTERCHAT:
+                    return SpeechType.MONSTERCHAT;
+                case HeroController.Situation.MONSTERENCOUNTERHERO:
+                    return SpeechType.MONSTERENCOUNTERHERO;
+                case HeroController.Situation.MONSTERDEPLOY:
+                    return SpeechType.MONSTERDEPLOY;
+                case HeroController.Situation.MONSTERDEAD:
+                    return SpeechType.MONSTERDEAD;
+
+            }
+            return 0;
+        }
+
+        public SpeechType ChangeSituationToSpeechType(MonsterAIController.Situation now)
+        {
+            switch (now)
+            {
+                case MonsterAIController.Situation.HEROOUTOFDUNGEON:
+                    return SpeechType.HEROOUTOFDUNGEON;
+                case MonsterAIController.Situation.HEROENTRANCEDUNGEON:
+                    return SpeechType.HEROENTRANCEDUNGEON;
+                case MonsterAIController.Situation.HEROFIGHT:
+                    return SpeechType.HEROFIGHT;
+                case MonsterAIController.Situation.HERODEAD:
+                    return SpeechType.HERODEAD;
+                case MonsterAIController.Situation.HEROTOUCH:
+                    return SpeechType.HEROTOUCH;
+                case MonsterAIController.Situation.HERODECIDEROUTE:
+                    return SpeechType.HERODECIDEROUTE;
+                case MonsterAIController.Situation.HEROINFRONTOFDOOR:
+                    return SpeechType.HEROINFRONTOFDOOR;
+                case MonsterAIController.Situation.HEROMEETSFATHER:
+                    return SpeechType.HEROMEETSFATHER;
+                case MonsterAIController.Situation.HEROCHAT:
+                    return SpeechType.HEROCHAT;
+                case MonsterAIController.Situation.HEROENCOUNTERENEMY:
+                    return SpeechType.HEROENCOUNTERENEMY;
+                case MonsterAIController.Situation.FAMILY:
+                    return SpeechType.FAMILY;
+                case MonsterAIController.Situation.EASTEREGGS:
+                    return SpeechType.EASTEREGGS;
+                case MonsterAIController.Situation.MONSTERCHAT:
+                    return SpeechType.MONSTERCHAT;
+                case MonsterAIController.Situation.MONSTERENCOUNTERHERO:
+                    return SpeechType.MONSTERENCOUNTERHERO;
+                case MonsterAIController.Situation.MONSTERDEPLOY:
+                    return SpeechType.MONSTERDEPLOY;
+                case MonsterAIController.Situation.MONSTERDEAD:
+                    return SpeechType.MONSTERDEAD;
             }
             return 0;
         }
@@ -128,6 +185,18 @@ namespace TVNT
                     case SpeechType.EASTEREGGS:
                         currentText = DBEasterEggs[Random.Range(0, DBEasterEggs.Count)];
                         break;
+                    case SpeechType.MONSTERCHAT:
+                        currentText = DBMonsterChat[Random.Range(0, DBMonsterChat.Count)];
+                        break;
+                    case SpeechType.MONSTERENCOUNTERHERO:
+                        currentText = DBMonsterEncounterHero[Random.Range(0, DBMonsterEncounterHero.Count)];
+                        break;
+                    case SpeechType.MONSTERDEPLOY:
+                        currentText = DBMonsterDeploy[Random.Range(0, DBMonsterDeploy.Count)];
+                        break;
+                    case SpeechType.MONSTERDEAD:
+                        currentText = DBMonsterDead[Random.Range(0, DBMonsterDead.Count)];
+                        break;
                 }
                 transform.GetComponent<TextMesh>().text = currentText;
                 yield return new WaitForSeconds(2.5f);
@@ -150,6 +219,10 @@ namespace TVNT
             SetHeroEncounterEnemy();
             SetFamily();
             SetEasterEggs();
+            SetMonsterChat();
+            SetMonsterEncounterHero();
+            SetMonsterDeploy();
+            SetMonsterDead();
         }
 
         // Use this for initialization
@@ -274,6 +347,32 @@ namespace TVNT
         {
             DBEasterEggs.Add("화톳불을 찾아서..");
             DBEasterEggs.Add("헤세드로 간다");
+        }
+        void SetMonsterChat()
+        {
+            DBMonsterChat.Add("마왕 꼰대놈 같으니라고");
+            DBMonsterChat.Add("형 이건아니야..");
+            DBMonsterChat.Add("야 잘좀 해봐라");
+            DBMonsterChat.Add("이게다 마왕때문입니다.");
+            DBMonsterChat.Add("일하기 귀찮네");
+        }
+        void SetMonsterEncounterHero()
+        {
+            DBMonsterEncounterHero.Add("아버지 이쪽으로 가셨는데?");
+            DBMonsterEncounterHero.Add("응~ 이쪽 아니야~");
+        }
+        void SetMonsterDeploy()
+        {
+            DBMonsterDeploy.Add("형 이쪽에 놓지마");
+            DBMonsterDeploy.Add("아야! 살살 놔");
+            DBMonsterDeploy.Add("여기는 아무도 안올거같은데?");
+            DBMonsterDeploy.Add("다시한번 생각해봐~");
+        }
+        void SetMonsterDead()
+        {
+            DBMonsterDead.Add("퇴근 개꿀띠~");
+            DBMonsterDead.Add("칼퇴해야겠다");
+            DBMonsterDead.Add("승천각 나오냐..");
         }
     }
 }
