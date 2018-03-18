@@ -11,6 +11,7 @@ namespace TVNT
         public GameObject prefab;
         public GameObject hoverPrefab;
         public bool isMonsterSelected;
+        public GameObject groundNode;
 
         void Start()
         {
@@ -60,7 +61,8 @@ namespace TVNT
             {
                 monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, Quaternion.identity);
             }
-            Destroy(hoverPrefab);
+            //Destroy(hoverPrefab);
+            groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
             isMonsterSelected = false;
         }
     }

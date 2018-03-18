@@ -9,7 +9,7 @@ namespace TVNT
     {
 
         public GameObject prefab;
-        GameObject hoverPrefab;
+        public GameObject hoverPrefab;
         GameObject MonsterIcon;
         bool isMouseOver = false;
 
@@ -27,6 +27,7 @@ namespace TVNT
             {
                 if (gameObject.transform.childCount == 0)
                 {
+                    MonsterIcon.GetComponent<MonsterSelect>().groundNode = gameObject;
                     hoverPrefab = MonsterIcon.GetComponent<MonsterSelect>().hoverPrefab;
                     hoverPrefab.transform.position = gameObject.transform.position + new Vector3(0, 2, 0);
                     hoverPrefab.SetActive(true);

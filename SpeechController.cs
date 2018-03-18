@@ -43,11 +43,45 @@ namespace TVNT
 
         float speechBubbleDestroyTime = 2.0f;
 
+        GameObject hero;
+
+        public SpeechType ChangeSituationToSpeechType(HeroController.Situation now)
+        {
+            switch (now)
+            {
+                case HeroController.Situation.HEROOUTOFDUNGEON:
+                    return SpeechType.HEROOUTOFDUNGEON;
+                case HeroController.Situation.HEROENTRANCEDUNGEON:
+                    return SpeechType.HEROENTRANCEDUNGEON;
+                case HeroController.Situation.HEROFIGHT:
+                    return SpeechType.HEROFIGHT;
+                case HeroController.Situation.HERODEAD:
+                    return SpeechType.HERODEAD;
+                case HeroController.Situation.HEROTOUCH:
+                    return SpeechType.HEROTOUCH;
+                case HeroController.Situation.HERODECIDEROUTE:
+                    return SpeechType.HERODECIDEROUTE;
+                case HeroController.Situation.HEROINFRONTOFDOOR:
+                    return SpeechType.HEROINFRONTOFDOOR;
+                case HeroController.Situation.HEROMEETSFATHER:
+                    return SpeechType.HEROMEETSFATHER;
+                case HeroController.Situation.HEROCHAT:
+                    return SpeechType.HEROCHAT;
+                case HeroController.Situation.HEROENCOUNTERENEMY:
+                    return SpeechType.HEROENCOUNTERENEMY;
+                case HeroController.Situation.FAMILY:
+                    return SpeechType.FAMILY;
+                case HeroController.Situation.EASTEREGGS:
+                    return SpeechType.EASTEREGGS;
+            }
+            return 0;
+        }
         //********************************************************************************
         //--------------------------------SPEECH METHOD-----------------------------------
         //********************************************************************************
         void Speech()
         {
+            currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
             switch (currentSpeechType)
             {
                 case SpeechType.HEROOUTOFDUNGEON:
@@ -110,6 +144,7 @@ namespace TVNT
         // Use this for initialization
         void Start()
         {
+            hero = gameObject.transform.parent.gameObject;
             InvokeRepeating("Speech",0.0f,5.0f);
         }
 
