@@ -51,6 +51,8 @@ namespace TVNT
         GameObject mainCamera;
         GameObject hero;
 
+        GameObject parent;
+
         public SpeechType ChangeSituationToSpeechType(HeroController.Situation now)
         {
             switch (now)
@@ -143,7 +145,14 @@ namespace TVNT
             {
                 if(currentSpeechType != SpeechType.FAMILY)
                 {
-                    currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                    if (parent.tag == "Player")
+                    {
+                        currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                    }
+                    else
+                    {
+                        currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<MonsterAIController>().currentSituation);
+                    }
                 }
                 
                 yield return new WaitForEndOfFrame();
@@ -228,6 +237,7 @@ namespace TVNT
         // Use this for initialization
         void Start()
         {
+            parent = transform.parent.gameObject;
             mainCamera = GameObject.Find("MainCamera");
             hero = gameObject.transform.parent.gameObject;
             StartCoroutine("Speech");

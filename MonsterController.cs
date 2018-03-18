@@ -19,6 +19,11 @@ namespace TVNT
             deployCount++;
             monsterList.Add(clone);
             clone.SetActive(true);
+
+            //Debug.Log(monsterList[recycleCount].transform.name);
+            clone.transform.Find("Speech").gameObject.SetActive(true);
+
+            clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
         }
 
         public void ActivateMonster(GameObject monster, int recycleCount, Vector3 position, Quaternion rotation)
@@ -28,6 +33,8 @@ namespace TVNT
             monsterList[recycleCount].name = monster.name + deployCount;
             deployCount++;
             monsterList[recycleCount].SetActive(true);
+            monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
+           
             monsterList[recycleCount].GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
         }
 
