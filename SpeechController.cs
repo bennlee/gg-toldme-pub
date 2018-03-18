@@ -82,6 +82,7 @@ namespace TVNT
             while (true)
             {
                 currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                yield return new WaitForEndOfFrame();
                 switch (currentSpeechType)
                 {
                     case SpeechType.HEROOUTOFDUNGEON:
