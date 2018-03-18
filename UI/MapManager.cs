@@ -10,11 +10,15 @@ public class MapManager : MonoBehaviour {
     public GameObject OptionMenu;
     public Text gemText;
     public Text goldText;
+    int gemCount;
+    int goldCount;
 
-    private void Awake()
+    void Start()
     {
-        gemText.text = (""+PlayerPrefs.GetInt("Gem"));
-        goldText.text = ("" + PlayerPrefs.GetInt("Gold"));
+        gemCount = PlayerPrefs.GetInt("Gem");
+        goldCount = PlayerPrefs.GetInt("TotalGolds");
+        gemText.text = (""+ gemCount);
+        goldText.text = ("" + goldCount);
     }
 
     public void Palace()

@@ -22,7 +22,7 @@ public class GameOverMenu : MonoBehaviour {
     public int wandCount;
 
     int loadGold;
-    int totalGold;
+    public int totalGold;
 
     private void Start()
     {
