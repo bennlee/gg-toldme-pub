@@ -13,9 +13,9 @@ namespace TVNT
             {
                 if (other.GetComponent<TVNTCharacterController>().lives > 0)
                 {
-                    //Debug.Log("Normal");
+                    Debug.Log("Normal attack.");
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
-                    //GameObject.Destroy(gameObject);
+                    GameObject.Destroy(gameObject);
                 }
                 else
                 {
