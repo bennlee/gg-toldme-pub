@@ -130,9 +130,9 @@ namespace TVNT
                         break;
                 }
                 transform.GetComponent<TextMesh>().text = currentText;
-                yield return new WaitForSeconds(3.0f);
+                yield return new WaitForSeconds(2.5f);
                 transform.GetComponent<TextMesh>().text = "";
-                yield return new WaitForSeconds(2.0f);
+                yield return new WaitForSeconds(1.0f);
             }
         }
         void Awake()
@@ -248,6 +248,9 @@ namespace TVNT
             DBHeroChat.Add("그만 들여다봐 변태들아");
             DBHeroChat.Add("호옹이?");
             DBHeroChat.Add("사실 나가고싶다");
+            DBHeroChat.Add("여기가 아닌가..?");
+            DBHeroChat.Add("이 길이 아닌가..?");
+            DBHeroChat.Add("증조할아버지가 이쪽 길로는 가지 말라고 하셨어");
         }
         void SetHeroEncounterEnemy()
         {
