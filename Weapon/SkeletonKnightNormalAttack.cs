@@ -15,15 +15,15 @@ namespace TVNT
                 {
                     //Debug.Log("Normal");
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
-                    GameObject.Destroy(gameObject);
+                    //GameObject.Destroy(gameObject);
                 }
                 else
                 {
-                    //other.GetComponent<MonsterAIController>().CharacterDead();
+                    other.GetComponent<HeroController>().CharacterDead();
                     //other.gameObject.SetActive(false);
                 }
             }
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
         }
     }
 }
