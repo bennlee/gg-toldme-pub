@@ -24,8 +24,6 @@ namespace TVNT
 
         };
 
-        public SpeechType currentSpeechType;
-
         List<string> DBHeroOutOfDungeon = new List<string>();
         List<string> DBHeroEntranceDungeon = new List<string>();
         List<string> DBHeroFight = new List<string>();
@@ -40,9 +38,9 @@ namespace TVNT
         List<string> DBEasterEggs = new List<string>();
         
         string currentText;
-
         float speechBubbleDestroyTime = 2.0f;
-
+        public SpeechType currentSpeechType;
+        GameObject mainCamera;
         GameObject hero;
 
         public SpeechType ChangeSituationToSpeechType(HeroController.Situation now)
@@ -79,54 +77,59 @@ namespace TVNT
         //********************************************************************************
         //--------------------------------SPEECH METHOD-----------------------------------
         //********************************************************************************
-        void Speech()
+        IEnumerator Speech()
         {
-            currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
-            switch (currentSpeechType)
+            while (true)
             {
-                case SpeechType.HEROOUTOFDUNGEON:
-                    currentText = DBHeroOutOfDungeon[Random.Range(0, DBHeroOutOfDungeon.Count)];
-                    break;
-                case SpeechType.HEROENTRANCEDUNGEON:
-                    currentText = DBHeroEntranceDungeon[Random.Range(0, DBHeroEntranceDungeon.Count)];
-                    break;
-                case SpeechType.HEROFIGHT:
-                    currentText = DBHeroFight[Random.Range(0, DBHeroFight.Count)];
-                    break;
-                case SpeechType.HERODEAD:
-                    currentText = DBHeroDead[Random.Range(0, DBHeroDead.Count)];
-                    break;
-                case SpeechType.HEROTOUCH:
-                    currentText = DBHeroTouch[Random.Range(0, DBHeroTouch.Count)];
-                    break;
-                case SpeechType.HERODECIDEROUTE:
-                    currentText = DBHeroDecideRoute[Random.Range(0, DBHeroDecideRoute.Count)];
-                    break;
-                case SpeechType.HEROINFRONTOFDOOR:
-                    currentText = DBHeroInFrontOfDoor[Random.Range(0, DBHeroInFrontOfDoor.Count)];
-                    break;
-                case SpeechType.HEROMEETSFATHER:
-                    currentText = DBHeroMeetsFather[Random.Range(0, DBHeroMeetsFather.Count)];
-                    break;
-                case SpeechType.HEROCHAT:
-                    currentText = DBHeroChat[Random.Range(0, DBHeroChat.Count)];
-                    break;
-                case SpeechType.HEROENCOUNTERENEMY:
-                    currentText = DBHeroEncounterEnemy[Random.Range(0, DBHeroEncounterEnemy.Count)];
-                    break;
-                case SpeechType.FAMILY:
-                    currentText = DBFamily[Random.Range(0, DBFamily.Count)];
-                    break;
-                case SpeechType.EASTEREGGS:
-                    currentText = DBEasterEggs[Random.Range(0, DBEasterEggs.Count)];
-                    break;
+                currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                switch (currentSpeechType)
+                {
+                    case SpeechType.HEROOUTOFDUNGEON:
+                        currentText = DBHeroOutOfDungeon[Random.Range(0, DBHeroOutOfDungeon.Count)];
+                        break;
+                    case SpeechType.HEROENTRANCEDUNGEON:
+                        currentText = DBHeroEntranceDungeon[Random.Range(0, DBHeroEntranceDungeon.Count)];
+                        break;
+                    case SpeechType.HEROFIGHT:
+                        currentText = DBHeroFight[Random.Range(0, DBHeroFight.Count)];
+                        break;
+                    case SpeechType.HERODEAD:
+                        currentText = DBHeroDead[Random.Range(0, DBHeroDead.Count)];
+                        break;
+                    case SpeechType.HEROTOUCH:
+                        currentText = DBHeroTouch[Random.Range(0, DBHeroTouch.Count)];
+                        break;
+                    case SpeechType.HERODECIDEROUTE:
+                        currentText = DBHeroDecideRoute[Random.Range(0, DBHeroDecideRoute.Count)];
+                        break;
+                    case SpeechType.HEROINFRONTOFDOOR:
+                        currentText = DBHeroInFrontOfDoor[Random.Range(0, DBHeroInFrontOfDoor.Count)];
+                        break;
+                    case SpeechType.HEROMEETSFATHER:
+                        currentText = DBHeroMeetsFather[Random.Range(0, DBHeroMeetsFather.Count)];
+                        break;
+                    case SpeechType.HEROCHAT:
+                        currentText = DBHeroChat[Random.Range(0, DBHeroChat.Count)];
+                        break;
+                    case SpeechType.HEROENCOUNTERENEMY:
+                        currentText = DBHeroEncounterEnemy[Random.Range(0, DBHeroEncounterEnemy.Count)];
+                        break;
+                    case SpeechType.FAMILY:
+                        currentText = DBFamily[Random.Range(0, DBFamily.Count)];
+                        break;
+                    case SpeechType.EASTEREGGS:
+                        currentText = DBEasterEggs[Random.Range(0, DBEasterEggs.Count)];
+                        break;
+                }
+                transform.GetComponent<TextMesh>().text = currentText;
+                yield return new WaitForSeconds(3.0f);
+                transform.GetComponent<TextMesh>().text = "";
+                yield return new WaitForSeconds(2.0f);
             }
-
-            transform.GetComponent<TextMesh>().text = currentText;
         }
-        
         void Awake()
         {
+            mainCamera = GameObject.Find("MainCamera");
             SetHeroOutOfDungeon();
             SetHeroEntranceDungeon();
             SetHeroFight();
@@ -145,12 +148,20 @@ namespace TVNT
         void Start()
         {
             hero = gameObject.transform.parent.gameObject;
-            InvokeRepeating("Speech",0.0f,5.0f);
+            StartCoroutine("Speech");
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (mainCamera.transform.position.y <= 70)
+            {
+                transform.GetComponent<MeshRenderer>().enabled = true;
+            }
+            else
+            {
+                transform.GetComponent<MeshRenderer>().enabled = false;
+            }
             transform.eulerAngles = new Vector3(60, 0, 0);
         }
 
