@@ -4,16 +4,15 @@ using UnityEngine;
 
 namespace TVNT
 {
-    public class SkeletonKnightNormalAttack : WeaponController
+    public class GolemShockWaveAttack : WeaponController
     {
-
         void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
             {
                 if (other.GetComponent<TVNTCharacterController>().lives > 0)
                 {
-                    //Debug.Log("Normal attack.");
+                    Debug.Log("golem shock attack.");
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
                     GameObject.Destroy(gameObject);
                 }
@@ -23,7 +22,7 @@ namespace TVNT
                     //other.gameObject.SetActive(false);
                 }
             }
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
         }
     }
 }
