@@ -79,9 +79,16 @@ namespace TVNT
         //********************************************************************************
         IEnumerator Speech()
         {
+            
+
+
             while (true)
             {
-                currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                if(currentSpeechType != SpeechType.FAMILY)
+                {
+                    currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                }
+                
                 yield return new WaitForEndOfFrame();
                 switch (currentSpeechType)
                 {
@@ -148,6 +155,7 @@ namespace TVNT
         // Use this for initialization
         void Start()
         {
+            mainCamera = GameObject.Find("MainCamera");
             hero = gameObject.transform.parent.gameObject;
             StartCoroutine("Speech");
         }
