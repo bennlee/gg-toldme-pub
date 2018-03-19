@@ -12,12 +12,14 @@ namespace TVNT
         public GameObject hoverPrefab;
         public bool isMonsterSelected;
         public GameObject groundNode;
+        GameObject SpawnController;
 
         void Start()
         {
+            SpawnController = GameObject.FindGameObjectWithTag("HeroSpawnController");
             monsterController = GameObject.FindGameObjectWithTag("MonsterController");
             hoverPrefab = Instantiate(prefab);
-            hoverPrefab.tag = "MonsterDeactivate";
+            hoverPrefab.tag = "MonsterDeactive";
             hoverPrefab.SetActive(false);
             mapLayer = LayerMask.GetMask("Map");
         }
@@ -43,11 +45,16 @@ namespace TVNT
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
+            if (SpawnController.GetComponent<HeroSpawnController>().currentSouls >= prefab.GetComponent<MonsterAIController>().requireSoul)
+            {
+                isMonsterSelected = true;
+            }
             // Debug.Log("Beginning drag");
-            isMonsterSelected = true;
             //hoverPrefab = Instantiate(prefab);
             //hoverPrefab.tag = "MonsterDeactivate";
             //hoverPrefab.SetActive(false);
+
+
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -57,26 +64,31 @@ namespace TVNT
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (hoverPrefab.activeSelf)
-            {
-                monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, Quaternion.identity);
+            if (isMonsterSelected) {
+                if (hoverPrefab.activeSelf)
+                {
+                    monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, Quaternion.identity);
+                    SpawnController.GetComponent<HeroSpawnController>().currentSouls -= prefab.GetComponent<MonsterAIController>().requireSoul;
+                    Debug.Log("soul decrease.");
+                }
+                //Destroy(hoverPrefab);
+                //groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
+                if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider)
+                {
+                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider.occupied = false;
+                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider = null;
+                }
+                if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider)
+                {
+                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider.occupied = false;
+                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider = null;
+                }
+                groundNode.GetComponent<GroundNode>().hoverPrefab.transform.parent = null;
+                groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
+                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().StopCoroutine(groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().Fight());
+                isMonsterSelected = false;
             }
-            //Destroy(hoverPrefab);
-            //groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
-            if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider)
-            {
-                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider.occupied = false;
-                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider = null;
-            }
-            if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider)
-            {
-                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider.occupied = false;
-                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider = null;
-            }
-            groundNode.GetComponent<GroundNode>().hoverPrefab.transform.parent = null;
-            groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
-            groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().StopCoroutine(groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().Fight());
             isMonsterSelected = false;
-        }
+        }     
     }
 }

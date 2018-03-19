@@ -19,10 +19,11 @@ namespace TVNT
             deployCount++;
             monsterList.Add(clone);
             clone.SetActive(true);
+            clone.tag = "MonsterDeactive";
+            Debug.Log("Deactive tag");
 
             //Debug.Log(monsterList[recycleCount].transform.name);
             clone.transform.Find("Speech").gameObject.SetActive(true);
-
             clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
         }
 
@@ -33,9 +34,11 @@ namespace TVNT
             monsterList[recycleCount].name = monster.name + deployCount;
             deployCount++;
             monsterList[recycleCount].SetActive(true);
+            monsterList[recycleCount].tag = "MonsterDeactive";
             monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
            
             monsterList[recycleCount].GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
+            
         }
 
         //public void DeactivateMonster(GameObject monster)
@@ -48,8 +51,9 @@ namespace TVNT
             int i = 0;
             while (i < monsterList.Count)
             {
-                if (!monsterList[i].activeSelf && monsterList[i].GetComponent<MonsterAIController>().type ==
-                    monster.GetComponent<MonsterAIController>().type)
+                if (!monsterList[i].activeSelf
+                    && monsterList[i].GetComponent<MonsterAIController>().type == monster.GetComponent<MonsterAIController>().type
+                    && monsterList[i].tag == "Monster")
                 {
                     recycleCount = i;
                     isRecyclable = true;
