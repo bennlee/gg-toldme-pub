@@ -10,7 +10,27 @@ namespace TVNT
         public int deployCount = 1;
         public int recycleCount = 0;
         public bool isRecyclable = false;
+        public GameObject heroSpawnController;
 
+        private void Start()
+        {
+            heroSpawnController = GameObject.FindGameObjectWithTag("HeroSpawnController");
+        }
+        public IEnumerator TeleportMonster(GameObject clone)
+        {
+            if (heroSpawnController.GetComponent<HeroSpawnController>().breakTime > 4.0f)
+            {
+                yield return new WaitForSeconds(3.0f);
+                clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
+                clone.transform.Find("Speech").gameObject.SetActive(false);
+                clone.SetActive(false);
+            }
+            else
+            {
+                clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
+                clone.tag = "Monster";
+            }
+        }
         public void CreateMonster(GameObject monster, Vector3 position, Quaternion rotation)
         {
             GameObject clone;
@@ -25,6 +45,7 @@ namespace TVNT
             //Debug.Log(monsterList[recycleCount].transform.name);
             clone.transform.Find("Speech").gameObject.SetActive(true);
             clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
+            
         }
 
         public void ActivateMonster(GameObject monster, int recycleCount, Vector3 position, Quaternion rotation)
