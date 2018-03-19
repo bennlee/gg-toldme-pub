@@ -8,6 +8,7 @@ public class MapManager : MonoBehaviour {
 
     SceneManager SceneManager;
     public GameObject OptionMenu;
+    public GameObject LevelLoader;
     public Text gemText;
     public Text goldText;
     int gemCount;
@@ -30,7 +31,19 @@ public class MapManager : MonoBehaviour {
     public void Stage1()
     {
         Debug.Log("Loading Stage...");
-        SceneManager.LoadScene(3);
+        LevelLoader.GetComponent<LevelLoader>().LoadLevel(3);
+    }
+
+    public void Stage2()
+    {
+        Debug.Log("Loading Stage...");
+       //SceneManager.LoadScene(3);
+    }
+
+    public void Stage3()
+    {
+        Debug.Log("Loading Stage...");
+        //SceneManager.LoadScene(3);
     }
 
     public void Option()
