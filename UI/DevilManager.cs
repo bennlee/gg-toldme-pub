@@ -18,7 +18,7 @@ public class DevilManager : MonoBehaviour {
     public Text t_totalGolds;
     public Text t_requireGolds;
     public Text t_totalHero;
-    public Text t_totalVillage;
+    //public Text t_totalVillage;
 
     //local DB instance
     int level;
@@ -75,12 +75,12 @@ public class DevilManager : MonoBehaviour {
         t_Level.text = ("Lv." + level);
         t_maxSouls.text = ("최대 소울 : " + maxSouls);
         t_regainSouls.text = ("소울 재생 : " + regainSouls +"/초");
-        t_monsAttack.text = ("몬스터 공격력 : " + monsAttack);
-        t_monsShield.text = ("몬스터 방어력 : " + monsShield);
+        t_monsAttack.text = ("몬스터 충성도 : " + monsAttack);
+        //t_monsShield.text = ("몬스터 충성도 : " + monsShield);
         t_totalGolds.text = ("" + totalGolds);
         t_requireGolds.text = ("" + requireGolds);
         t_totalHero.text = ("지금까지 잡은 용사 : " + totalHero + "명");
-        t_totalVillage.text = ("지금까지 정복한 마을 : " + totalVillage + "개");
+        //t_totalVillage.text = ("지금까지 정복한 마을 : " + totalVillage + "개");
         LevelUpUI();
     }
 
@@ -115,7 +115,7 @@ public class DevilManager : MonoBehaviour {
         totalGolds = PlayerPrefs.GetInt("TotalGolds");
         requireGolds = PlayerPrefs.GetInt("RequireGolds");
         t_totalHero.text = PlayerPrefs.GetString("TotalHero");
-        t_totalVillage.text = PlayerPrefs.GetString("TotalVillage");
+        //t_totalVillage.text = PlayerPrefs.GetString("TotalVillage");
     }
 
     //save to local DB
