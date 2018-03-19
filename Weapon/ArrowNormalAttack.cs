@@ -6,6 +6,10 @@ namespace TVNT
 {
     public class ArrowNormalAttack : WeaponController
     {
+        void Start()
+        {
+            damage = GetComponentInParent<WeaponController>().damage;
+        }
         void Update()
         {
             transform.Translate(new Vector3(10, 0, 0) * Time.deltaTime);

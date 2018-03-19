@@ -6,7 +6,10 @@ namespace TVNT
 {
 	public class SwordNormalAttack : WeaponController
 	{
-      
+        void Start()
+        {
+            damage = GetComponentInParent<WeaponController>().damage;
+        }
         void OnTriggerEnter (Collider other)
 		{
 			if (other.tag == "Monster") {

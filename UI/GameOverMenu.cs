@@ -15,19 +15,22 @@ public class GameOverMenu : MonoBehaviour {
     public Text totalGoldText;
 
     [HideInInspector]
-    public int swordCount;
+    public int swordCount = 0;
     [HideInInspector]
-    public int bowCount;
+    public int bowCount = 0;
     [HideInInspector]
-    public int wandCount;
+    public int wandCount = 0;
 
     int loadGold;
     public int totalGold;
+    int loadHeroCount;
+    public int deadHeroCount;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         loadGold = PlayerPrefs.GetInt("TotalGolds");
+        loadHeroCount = PlayerPrefs.GetInt("TotalHero ");
         swordText.text = (""+swordCount);
         bowText.text = ("" + bowCount);
         wandText.text = ("" + wandCount);
@@ -49,7 +52,9 @@ public class GameOverMenu : MonoBehaviour {
     private void Save()
     {
         loadGold += totalGold;
+        loadHeroCount += deadHeroCount;
         PlayerPrefs.SetInt("TotalGolds", loadGold);
+        PlayerPrefs.SetInt("TotalHero", loadHeroCount);
     }
 
 }

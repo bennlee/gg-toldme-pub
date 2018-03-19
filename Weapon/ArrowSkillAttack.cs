@@ -6,8 +6,11 @@ namespace TVNT
 {
 	public class ArrowSkillAttack : WeaponController
 	{
-
-		void Update(){
+        void Start()
+        {
+            damage = GetComponentInParent<WeaponController>().damage;
+        }
+        void Update(){
 			transform.Translate (new Vector3(10,0,0) * Time.deltaTime);
 		}
 
@@ -19,13 +22,13 @@ namespace TVNT
                 if( other.GetComponent<TVNTCharacterController>().lives >= 5)
                 {
                     passMonster = other.gameObject;
-                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    other.GetComponent<TVNTCharacterController>().lives -= damage * 2;
                     other.GetComponent<MonsterAIController>().threatenTime = 0;
                 }
                 else if (other.GetComponent<TVNTCharacterController>().lives < 5 && other.GetComponent<TVNTCharacterController>().lives > 2)
                 {
                     passMonster = other.gameObject;
-                    other.GetComponent<TVNTCharacterController>().lives -= damage;
+                    other.GetComponent<TVNTCharacterController>().lives -= damage * 2;
                     other.GetComponent<MonsterAIController>().threatenTime = 0;
                     other.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEAD);
                 }

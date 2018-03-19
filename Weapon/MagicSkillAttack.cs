@@ -6,6 +6,10 @@ namespace TVNT
 {
     public class MagicSkillAttack : WeaponController
     {
+        void Start()
+        {
+            damage = GetComponentInParent<WeaponController>().damage;
+        }
         void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Monster")

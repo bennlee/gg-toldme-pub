@@ -6,9 +6,13 @@ namespace TVNT
 {
     public class MagicNormalAttack : WeaponController
     {
+        void Start()
+        {
+            damage = GetComponentInParent<WeaponController>().damage;
+        }
         void Update()
         {
-            transform.Translate(new Vector3(10, 4, 0) * Time.deltaTime);
+            transform.Translate(new Vector3(10, 2, 0) * Time.deltaTime);
         }
 
         void OnTriggerEnter(Collider other)
