@@ -62,7 +62,20 @@ namespace TVNT
                 monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, Quaternion.identity);
             }
             //Destroy(hoverPrefab);
+            //groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
+            if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider)
+            {
+                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider.occupied = false;
+                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider = null;
+            }
+            if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider)
+            {
+                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider.occupied = false;
+                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider = null;
+            }
+            groundNode.GetComponent<GroundNode>().hoverPrefab.transform.parent = null;
             groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
+            groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().StopCoroutine(groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().Fight());
             isMonsterSelected = false;
         }
     }
