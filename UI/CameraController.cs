@@ -31,10 +31,11 @@ public class CameraController : MonoBehaviour {
 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         pos.y -= scroll * scrollSpeed * 100f * Time.deltaTime;
+        
 
-        pos.x = Mathf.Clamp(pos.x, -70, 70);
+        pos.x = Mathf.Clamp(pos.x, -80 + 0.350f * pos.y, 70 - 0.375f * pos.y);
         pos.y = Mathf.Clamp(pos.y, minY, maxY);
-        pos.z = Mathf.Clamp(pos.z, -90, 40);
+        pos.z = Mathf.Clamp(pos.z, -80 - 0.085f * pos.y, 70 - 0.90f * pos.y);
         
         transform.position = pos;
     }
