@@ -145,15 +145,20 @@ namespace TVNT
             {
                 if(currentSpeechType != SpeechType.FAMILY)
                 {
-                    if (parent.tag == "Player")
+                    if (currentSpeechType != SpeechType.HEROMEETSFATHER)
                     {
-                        currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
-                    }
-                    else
-                    {
-                        currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<MonsterAIController>().currentSituation);
+                        if (parent.tag == "Player")
+                        {
+                            currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<HeroController>().currentSituation);
+                        }
+                        else
+                        {
+                            currentSpeechType = ChangeSituationToSpeechType(hero.GetComponent<MonsterAIController>().currentSituation);
+                        }
                     }
                 }
+
+                
                 
                 yield return new WaitForEndOfFrame();
                 switch (currentSpeechType)
