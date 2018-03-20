@@ -32,9 +32,9 @@ public class DevilManager : MonoBehaviour {
     int totalVillage;
 
     SceneManager SceneManager;
-
+    
 	// Use this for initialization
-	void Awake ()
+	void OnEnable ()
     {
         LoadData();
         TextSetting();
@@ -114,8 +114,7 @@ public class DevilManager : MonoBehaviour {
         monsShield = PlayerPrefs.GetFloat("MonsShield");
         totalGolds = PlayerPrefs.GetInt("TotalGolds");
         requireGolds = PlayerPrefs.GetInt("RequireGolds");
-        t_totalHero.text = PlayerPrefs.GetString("TotalHero");
-        //t_totalVillage.text = PlayerPrefs.GetString("TotalVillage");
+        totalHero = PlayerPrefs.GetInt("TotalHeroCount");
     }
 
     //save to local DB
@@ -129,6 +128,7 @@ public class DevilManager : MonoBehaviour {
         PlayerPrefs.SetFloat("MonsShield", monsShield);
         PlayerPrefs.SetInt("TotalGolds", totalGolds);
         PlayerPrefs.SetInt("RequireGolds", requireGolds);
+        PlayerPrefs.SetInt("TotalHeroCount", totalHero);
     }
 
     public void ResetData()
@@ -140,6 +140,7 @@ public class DevilManager : MonoBehaviour {
         monsShield = 5;
         totalGolds = 10000;
         requireGolds = 3;
+        totalHero = 0;
 
         SaveData();
         TextSetting();

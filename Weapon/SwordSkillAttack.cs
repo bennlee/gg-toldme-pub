@@ -21,7 +21,7 @@ namespace TVNT
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
                     other.GetComponent<MonsterAIController>().threatenTime = 0;
                 }
-                if (other.GetComponent<TVNTCharacterController>().lives < 5 && other.GetComponent<TVNTCharacterController>().lives > 2)
+                else if (other.GetComponent<TVNTCharacterController>().lives < 5 && other.GetComponent<TVNTCharacterController>().lives > 2)
                 {
                     other.GetComponent<TVNTCharacterController>().lives -= damage;
                     other.GetComponent<MonsterAIController>().threatenTime = 0;

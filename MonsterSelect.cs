@@ -13,6 +13,7 @@ namespace TVNT
         public bool isMonsterSelected;
         public GameObject groundNode;
         GameObject SpawnController;
+        public bool clickable = true;
 
         void Start()
         {
@@ -45,9 +46,12 @@ namespace TVNT
 
         void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
         {
-            if (SpawnController.GetComponent<HeroSpawnController>().currentSouls >= prefab.GetComponent<MonsterAIController>().requireSoul)
+            if (clickable)
             {
-                isMonsterSelected = true;
+                if (SpawnController.GetComponent<HeroSpawnController>().currentSouls >= prefab.GetComponent<MonsterAIController>().requireSoul)
+                {
+                    isMonsterSelected = true;
+                }
             }
             // Debug.Log("Beginning drag");
             //hoverPrefab = Instantiate(prefab);
