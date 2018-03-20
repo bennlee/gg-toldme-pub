@@ -11,6 +11,9 @@ namespace TVNT
         public int recycleCount = 0;
         public bool isRecyclable = false;
         public GameObject heroSpawnController;
+        public Vector3 teleportPosition;
+        public Quaternion teleportRotation;
+
 
         private void Start()
         {
@@ -23,7 +26,32 @@ namespace TVNT
                 yield return new WaitForSeconds(3.0f);
                 clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
                 clone.transform.Find("Speech").gameObject.SetActive(false);
+                teleportPosition = clone.transform.position;
+                teleportRotation = clone.transform.rotation;
+
                 clone.SetActive(false);
+
+                if (clone.GetComponent<MonsterAIController>().type == 1)
+                {
+                    GameObject tempTeleportMonster;
+                    tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster1, teleportPosition, teleportRotation);
+                    tempTeleportMonster.SetActive(true);
+                    tempTeleportMonster.tag = "teleportMonster";
+                }
+                else if (clone.GetComponent<MonsterAIController>().type == 2)
+                {
+                    GameObject tempTeleportMonster;
+                    tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster2, teleportPosition, teleportRotation);
+                    tempTeleportMonster.SetActive(true);
+                    tempTeleportMonster.tag = "teleportMonster";
+                }
+                else
+                {
+                    GameObject tempTeleportMonster;
+                    tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster3, teleportPosition, teleportRotation);
+                    tempTeleportMonster.SetActive(true);
+                    tempTeleportMonster.tag = "teleportMonster";
+                }
             }
             else
             {
@@ -45,6 +73,7 @@ namespace TVNT
             //Debug.Log(monsterList[recycleCount].transform.name);
             clone.transform.Find("Speech").gameObject.SetActive(true);
             clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
+            TeleportMonster(clone);
             
         }
 
@@ -59,6 +88,7 @@ namespace TVNT
             monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
            
             monsterList[recycleCount].GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
+            TeleportMonster(monsterList[recycleCount]);
             
         }
 
