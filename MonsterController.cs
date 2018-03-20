@@ -19,48 +19,77 @@ namespace TVNT
         {
             heroSpawnController = GameObject.FindGameObjectWithTag("HeroSpawnController");
         }
-        public IEnumerator TeleportMonster(GameObject clone)
+
+        public void TeleportMonster(GameObject cloned)
         {
-            if (heroSpawnController.GetComponent<HeroSpawnController>().breakTime > 5.0f)
+            cloned.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
+            teleportPosition = cloned.transform.position;
+            teleportRotation = cloned.transform.rotation;
+            if (cloned.GetComponent<MonsterAIController>().type == 1)
             {
-                yield return new WaitForSeconds(3.0f);
-                clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
-                //clone.transform.Find("Speech").gameObject.SetActive(false);
-                teleportPosition = clone.transform.position;
-                teleportRotation = clone.transform.rotation;
-
-
-                if (clone.GetComponent<MonsterAIController>().type == 1)
-                {
-                    GameObject tempTeleportMonster;
-                    tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster1, teleportPosition, teleportRotation);
-                    tempTeleportMonster.SetActive(true);
-                    tempTeleportMonster.tag = "teleportMonster";
-                }
-                else if (clone.GetComponent<MonsterAIController>().type == 2)
-                {
-                    GameObject tempTeleportMonster;
-                    tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster2, teleportPosition, teleportRotation);
-                    tempTeleportMonster.SetActive(true);
-                    tempTeleportMonster.tag = "teleportMonster";
-                }
-                else
-                {
-                    GameObject tempTeleportMonster;
-                    tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster3, teleportPosition, teleportRotation);
-                    tempTeleportMonster.SetActive(true);
-                    tempTeleportMonster.tag = "teleportMonster";
-                }
-                clone.SetActive(false);
-
+                GameObject tempTeleportMonster;
+                tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster1, teleportPosition, teleportRotation);
+                tempTeleportMonster.SetActive(true);
+                tempTeleportMonster.tag = "teleportMonster";
+            }
+            else if (cloned.GetComponent<MonsterAIController>().type == 2)
+            {
+                GameObject tempTeleportMonster;
+                tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster2, teleportPosition, teleportRotation);
+                tempTeleportMonster.SetActive(true);
+                tempTeleportMonster.tag = "teleportMonster";
             }
             else
             {
-                yield return new WaitForSeconds(3.0f);
-                clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
-                clone.tag = "Monster";
+                GameObject tempTeleportMonster;
+                tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster3, teleportPosition, teleportRotation);
+                tempTeleportMonster.SetActive(true);
+                tempTeleportMonster.tag = "teleportMonster";
             }
+            cloned.SetActive(false);
         }
+        //public IEnumerator TeleportMonster(GameObject clone)
+        //{
+        //    if (heroSpawnController.GetComponent<HeroSpawnController>().breakTime > 5.0f)
+        //    {
+        //        yield return new WaitForSeconds(3.0f);
+        //        clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
+        //        //clone.transform.Find("Speech").gameObject.SetActive(false);
+        //        teleportPosition = clone.transform.position;
+        //        teleportRotation = clone.transform.rotation;
+
+
+        //        if (clone.GetComponent<MonsterAIController>().type == 1)
+        //        {
+        //            GameObject tempTeleportMonster;
+        //            tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster1, teleportPosition, teleportRotation);
+        //            tempTeleportMonster.SetActive(true);
+        //            tempTeleportMonster.tag = "teleportMonster";
+        //        }
+        //        else if (clone.GetComponent<MonsterAIController>().type == 2)
+        //        {
+        //            GameObject tempTeleportMonster;
+        //            tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster2, teleportPosition, teleportRotation);
+        //            tempTeleportMonster.SetActive(true);
+        //            tempTeleportMonster.tag = "teleportMonster";
+        //        }
+        //        else
+        //        {
+        //            GameObject tempTeleportMonster;
+        //            tempTeleportMonster = Instantiate(heroSpawnController.GetComponent<HeroSpawnController>().teleportMonster3, teleportPosition, teleportRotation);
+        //            tempTeleportMonster.SetActive(true);
+        //            tempTeleportMonster.tag = "teleportMonster";
+        //        }
+        //        clone.SetActive(false);
+
+        //    }
+        //    else
+        //    {
+        //        yield return new WaitForSeconds(3.0f);
+        //        clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
+        //        clone.tag = "Monster";
+        //    }
+        //}
         public void CreateMonster(GameObject monster, Vector3 position, Quaternion rotation)
         {
             GameObject clone;
@@ -71,12 +100,13 @@ namespace TVNT
             clone.SetActive(true);
             clone.tag = "MonsterDeactive";
             Debug.Log("Deactive tag");
-
+            clone.transform.Find("Speech").gameObject.SetActive(false);
+            clone.GetComponent<MonsterAIController>().monsterController = gameObject;
             //Debug.Log(monsterList[recycleCount].transform.name);
             //clone.transform.Find("Speech").gameObject.SetActive(true);
             clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
-            TeleportMonster(clone);
-            
+            clone.transform.Find("Speech").gameObject.SetActive(true);
+            clone.GetComponent<MonsterAIController>().StartCoroutine(clone.GetComponent<MonsterAIController>().CallTeleport(clone));     
         }
 
         public void ActivateMonster(GameObject monster, int recycleCount, Vector3 position, Quaternion rotation)
@@ -87,11 +117,13 @@ namespace TVNT
             deployCount++;
             monsterList[recycleCount].SetActive(true);
             monsterList[recycleCount].tag = "MonsterDeactive";
+            monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(false);
+            monsterList[recycleCount].GetComponent<MonsterAIController>().monsterController = gameObject;
             //monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
-           
+
             monsterList[recycleCount].GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
-            TeleportMonster(monsterList[recycleCount]);
-            
+            monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
+            monsterList[recycleCount].GetComponent<MonsterAIController>().StartCoroutine(monsterList[recycleCount].GetComponent<MonsterAIController>().CallTeleport(monsterList[recycleCount]));
         }
 
         //public void DeactivateMonster(GameObject monster)

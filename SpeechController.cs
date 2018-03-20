@@ -244,12 +244,13 @@ namespace TVNT
         {
             parent = transform.parent.gameObject;
             mainCamera = GameObject.Find("MainCamera");
-            hero = gameObject.transform.parent.gameObject; 
+            hero = gameObject.transform.parent.gameObject;
+            StartCoroutine("Speech");
         }
 
         void OnEnable()
         {
-            StartCoroutine("Speech");
+            //StartCoroutine("Speech");
         }
         // Update is called once per frame
         void Update()

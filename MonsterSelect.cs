@@ -21,6 +21,7 @@ namespace TVNT
             monsterController = GameObject.FindGameObjectWithTag("MonsterController");
             hoverPrefab = Instantiate(prefab);
             hoverPrefab.tag = "MonsterDeactive";
+            hoverPrefab.transform.Find("Speech").gameObject.SetActive(false);
             hoverPrefab.SetActive(false);
             mapLayer = LayerMask.GetMask("Map");
         }
