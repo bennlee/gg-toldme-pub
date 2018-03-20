@@ -63,7 +63,7 @@ public class DevilManager : MonoBehaviour {
     public void BackBtn()
     {
         Debug.Log("Back to world map...");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     void TextSetting()
