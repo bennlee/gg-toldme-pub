@@ -21,15 +21,14 @@ namespace TVNT
         }
         public IEnumerator TeleportMonster(GameObject clone)
         {
-            if (heroSpawnController.GetComponent<HeroSpawnController>().breakTime > 4.0f)
+            if (heroSpawnController.GetComponent<HeroSpawnController>().breakTime > 5.0f)
             {
                 yield return new WaitForSeconds(3.0f);
                 clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
-                clone.transform.Find("Speech").gameObject.SetActive(false);
+                //clone.transform.Find("Speech").gameObject.SetActive(false);
                 teleportPosition = clone.transform.position;
                 teleportRotation = clone.transform.rotation;
 
-                clone.SetActive(false);
 
                 if (clone.GetComponent<MonsterAIController>().type == 1)
                 {
@@ -52,9 +51,12 @@ namespace TVNT
                     tempTeleportMonster.SetActive(true);
                     tempTeleportMonster.tag = "teleportMonster";
                 }
+                clone.SetActive(false);
+
             }
             else
             {
+                yield return new WaitForSeconds(3.0f);
                 clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERCHAT);
                 clone.tag = "Monster";
             }
@@ -71,7 +73,7 @@ namespace TVNT
             Debug.Log("Deactive tag");
 
             //Debug.Log(monsterList[recycleCount].transform.name);
-            clone.transform.Find("Speech").gameObject.SetActive(true);
+            //clone.transform.Find("Speech").gameObject.SetActive(true);
             clone.GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
             TeleportMonster(clone);
             
@@ -85,7 +87,7 @@ namespace TVNT
             deployCount++;
             monsterList[recycleCount].SetActive(true);
             monsterList[recycleCount].tag = "MonsterDeactive";
-            monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
+            //monsterList[recycleCount].transform.Find("Speech").gameObject.SetActive(true);
            
             monsterList[recycleCount].GetComponent<MonsterAIController>().SetSituation(MonsterAIController.Situation.MONSTERDEPLOY);
             TeleportMonster(monsterList[recycleCount]);
