@@ -40,13 +40,13 @@ public class GameOverMenu : MonoBehaviour {
     public void ToMain()
     {
         Save();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void PlayAgain()
     {
         Save();
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     private void Save()

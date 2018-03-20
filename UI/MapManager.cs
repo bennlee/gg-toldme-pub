@@ -25,13 +25,13 @@ public class MapManager : MonoBehaviour {
     public void Palace()
     {
         Debug.Log("Loading Palace...");
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void Stage1()
     {
         Debug.Log("Loading Stage...");
-        LevelLoader.GetComponent<LevelLoader>().LoadLevel(3);
+        LevelLoader.GetComponent<LevelLoader>().LoadLevel(4);
     }
 
     public void Stage2()
