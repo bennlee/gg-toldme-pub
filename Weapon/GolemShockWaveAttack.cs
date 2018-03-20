@@ -6,10 +6,15 @@ namespace TVNT
 {
     public class GolemShockWaveAttack : WeaponController
     {
+        void Start()
+        {
+            damage = (int)(GetComponentInParent<WeaponController>().damage * 1.2f);
+        }
         void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
             {
+                Debug.Log("golem shock wave attack : " + damage);
                 if (other.GetComponent<TVNTCharacterController>().lives >= 5)
                 {
                     Debug.Log("golem shock attack.");

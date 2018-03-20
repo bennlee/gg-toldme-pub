@@ -19,6 +19,7 @@ namespace TVNT
         {
             if (other.tag == "Monster")
             {
+                Debug.Log("magic normal attack : " + damage);
                 //Debug.Log("magic attack!!");
                 if (other.GetComponent<TVNTCharacterController>().lives >= 5)
                 {
