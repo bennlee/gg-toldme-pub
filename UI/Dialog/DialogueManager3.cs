@@ -26,6 +26,7 @@ public class DialogueManager3 : MonoBehaviour
     public GameObject dialogPanel;
     public GameObject tutorialCurser;
     public Text tutorial;
+    public GameObject tutorialBox;
 
     float temp = 0;
 
@@ -33,15 +34,20 @@ public class DialogueManager3 : MonoBehaviour
 
     void Awake()
     {
-        dialogueFlow = GameObject.Find("DialogueFlow");
-        currentDialogue = dialogueFlow.GetComponent<DialogueFlow3>().Scene1Dialogue;
+        if (temp == 0)
+        {
+            Invoke("DisableSpawn", 0.9f);
+            dialogPanel.SetActive(true);
+        }
     }
 
-    void Start()
+    void OnEnable()
     {
-        ScreenSetting();
+        dialogueFlow = GameObject.Find("DialogueFlow");
+        currentDialogue = dialogueFlow.GetComponent<DialogueFlow3>().Scene1Dialogue;
         animator.SetBool("isOpen", true);
-        Invoke("DisableSpawn", 0.9f);
+        ScreenSetting();
+
     }
 
     void DisableSpawn()
@@ -148,23 +154,36 @@ public class DialogueManager3 : MonoBehaviour
         dialogPanel.SetActive(false);
         heroSpawnController.SetActive(true);
         tutorialCurser.SetActive(true);
+        tutorialBox.SetActive(true);
+
         tutorial.text = "몬스터를 끌어서 맵에 소환하세요.";
         yield return new WaitForSeconds(4.5f);
         tutorialCurser.SetActive(false);
-        yield return new WaitForSeconds(5.5f);
+        
         tutorial.text = "용사들은 동서남북의\n네 방향에서 들어옵니다.";
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(4.0f);
         tutorial.text = "스크롤로 확대, wsad 키로\n화면을 이동할 수 있습니다.";
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(4.0f);
         tutorial.text = "용사들이 마왕이 있는 방에\n들어가면 패배입니다.";
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(4.0f);
         tutorial.text = "낮에는 스킬을 이용하고,\n밤에는 몬스터를 소환하세요.";
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(4.0f);
+        tutorial.text = "최후의 용사가 수명이 다하거나\n 죽으면 게임 승리입니다.";
+        yield return new WaitForSeconds(4.0f);
+        tutorial.text = "밤에 몬스터를 소환하면\n아침에 출근합니다.";
+        yield return new WaitForSeconds(4.0f);
         tutorial.text = "몬스터를 소환할 수 있는 시간은\n게임 시작 5초 전 까지입니다.";
-        yield return new WaitForSeconds(5.0f);
-        tutorial.text = "몬스터를 적재적소에 소환해\n용사들을 막으세요!.";
-        yield return new WaitForSeconds(5.0f);
-        tutorial.text = "";
+        yield return new WaitForSeconds(4.0f);
+        tutorial.text = "몬스터를 적재적소에 소환해\n용사들을 막으세요!";
+        yield return new WaitForSeconds(2.0f);
+        tutorial.text = "준비되셨나요?\n자, 이제 시작합니다!!";
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene(4);
+    }
+
+    public void Skip()
+    {
+        SceneManager.LoadScene(4);
     }
 
 }
