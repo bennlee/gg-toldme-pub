@@ -13,12 +13,15 @@ public class MapManager : MonoBehaviour {
     public Text goldText;
     int gemCount;
     int goldCount;
+    int temp;
+
+    public GameObject Credit;
 
     public GameObject Dialogue;
     
     void Awake()
     {
-        int temp = PlayerPrefs.GetInt("WorldMapCount");
+        temp = PlayerPrefs.GetInt("WorldMapCount");
         if(temp == 0)
         {
             Dialogue.SetActive(true);
@@ -36,12 +39,15 @@ public class MapManager : MonoBehaviour {
     public void Palace()
     {
         Debug.Log("Loading Palace...");
+        temp++;
+        PlayerPrefs.SetInt("WorldMapCount", temp);
         SceneManager.LoadScene(3);
     }
 
     public void Stage1()
     {
         Debug.Log("Loading Stage...");
+        PlayerPrefs.SetInt("WorldMapCount", temp);
         LevelLoader.GetComponent<LevelLoader>().LoadLevel(4);
     }
 
@@ -75,11 +81,17 @@ public class MapManager : MonoBehaviour {
 
     public void Developer()
     {
+        Credit.SetActive(true);
+    }
 
+    public void Developer_Close()
+    {
+        Credit.SetActive(false);
     }
 
     public void Quit()
     {
         //Application.Quit();
     }
+    
 }
