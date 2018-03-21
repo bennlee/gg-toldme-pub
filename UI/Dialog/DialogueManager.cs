@@ -18,7 +18,7 @@ public class DialogueManager : MonoBehaviour {
     Dialogue[] currentDialogue;
 
     int dialogue_iterator = 0;
-    int scene_iterator = 0;
+    int scene_iterator;
 
     public Animator animator;
 
