@@ -70,28 +70,29 @@ namespace TVNT
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (isMonsterSelected) {
+            if (isMonsterSelected)
+            {
                 if (hoverPrefab.activeSelf)
                 {
-                    monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, Quaternion.identity);
+                    monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, hoverPrefab.transform.rotation);
                     SpawnController.GetComponent<HeroSpawnController>().currentSouls -= prefab.GetComponent<MonsterAIController>().requireSoul;
                     Debug.Log("soul decrease.");
                 }
                 //Destroy(hoverPrefab);
                 //groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
-                if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider)
-                {
-                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider.occupied = false;
-                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider = null;
-                }
-                if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider)
-                {
-                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider.occupied = false;
-                    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider = null;
-                }
-                groundNode.GetComponent<GroundNode>().hoverPrefab.transform.parent = null;
+                //if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider)
+                //{
+                //    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider.occupied = false;
+                //    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().parentGroundCollider = null;
+                //}
+                //if (groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider)
+                //{
+                //    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider.occupied = false;
+                //    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider = null;
+                //}
+                //groundNode.GetComponent<GroundNode>().hoverPrefab.transform.parent = null;
                 groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
-                groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().StopCoroutine(groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().Fight());
+                //groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().StopCoroutine(groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().Fight());
                 isMonsterSelected = false;
             }
             //Destroy(hoverPrefab);
@@ -107,9 +108,9 @@ namespace TVNT
             //    groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<TVNTCharacterController>().targetGroundCollider = null;
             //}
             //groundNode.GetComponent<GroundNode>().hoverPrefab.transform.parent = null;
-            groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
+            //groundNode.GetComponent<GroundNode>().hoverPrefab.SetActive(false);
             //groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().StopCoroutine(groundNode.GetComponent<GroundNode>().hoverPrefab.GetComponent<MonsterAIController>().Fight());
-            isMonsterSelected = false;
+            //isMonsterSelected = false;
         }     
     }
 }
