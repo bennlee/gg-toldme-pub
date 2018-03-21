@@ -30,8 +30,11 @@ public class DialogueManager2 : MonoBehaviour {
     void Start()
     {
         ScreenSetting();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().worldmapBgm);
+        soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().worldmapPaper);
     }
-
+    public GameObject soundManager;
     void ScreenSetting()
     {
         characterImage.sprite = currentDialogue[dialogue_iterator].characterSpriteImage;

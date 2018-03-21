@@ -42,7 +42,13 @@ public class DialogueManager3 : MonoBehaviour
         ScreenSetting();
         animator.SetBool("isOpen", true);
         Invoke("DisableSpawn", 0.9f);
+
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().tutorialBgm);
+        soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story3Laugh);
     }
+
+    public GameObject soundManager;
 
     void DisableSpawn()
     {
@@ -85,6 +91,14 @@ public class DialogueManager3 : MonoBehaviour
         else
         {
             dialogue_iterator++;
+            if (dialogue_iterator == 2 && scene_iterator == 1)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().minionVoice7);
+            }
+            if (dialogue_iterator == 6 && scene_iterator == 1)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().minionVoice7);
+            }
             ScreenSetting();
         }
     }

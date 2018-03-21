@@ -35,10 +35,16 @@ public class DialogueManager : MonoBehaviour {
     void Start()
     {
         ScreenSetting();
+        nowStory = 1;
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().story1Bgm);
+        soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorOpen);
     }
 
+    public GameObject iteratorLock;
     void ScreenSetting()
     {
+        iteratorLock.GetComponent<Button>().interactable = false;
         characterImage.sprite = currentDialogue[dialogue_iterator].characterSpriteImage;
         nameText.text = currentDialogue[dialogue_iterator].name;
         StopAllCoroutines();
@@ -53,24 +59,70 @@ public class DialogueManager : MonoBehaviour {
             dialogueText.text += letter;
             yield return new WaitForSeconds(0.025f);
         }
+        iteratorLock.GetComponent<Button>().interactable = true;
     }
-
+    public GameObject soundManager;
     void FixedUpdate()
     {
         //Debug.Log("conversation");
     }
+    private int nowStory = 1;
     
     public void NextSpeech()
     {
         //Debug.Log("next speech");
         if (currentDialogue.Length == dialogue_iterator+1)
         {
+            nowStory++;
             dialogue_iterator = 0;
             NextScene();
+
+            if (nowStory == 2)
+            {
+                soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().story2Bgm);
+            }
+            else if (nowStory ==3)
+            {
+                soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().story3Bgm);
+            }
         }
         else
         {
             dialogue_iterator++;
+            
+            if (dialogue_iterator == 2 && nowStory == 1)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorClose);
+            }
+            if (dialogue_iterator == 3 && nowStory == 1)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorOpen);
+            }
+            if (dialogue_iterator == 6 && nowStory == 1)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorClose);
+            }
+            if (dialogue_iterator == 3 && nowStory == 2)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story2Crowd);
+            }
+            if (dialogue_iterator == 0 && nowStory == 3)
+            {
+                //soundManager.GetComponent<SoundManager>().efxSource.Stop();
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorOpen);
+            }
+            if (dialogue_iterator == 3 && nowStory == 3)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story3Laugh);
+            }
+            if (dialogue_iterator == 8 && nowStory == 3)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story3Laugh);
+            }
+            if (dialogue_iterator == 10 && nowStory == 3)
+            {
+                soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().minionVoice7);
+            }
             ScreenSetting();
         }
     }

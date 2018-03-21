@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour {
 
+    public AudioSource buttonClick;
     public AudioSource efxSource;
     public AudioSource musicSource;
     public static SoundManager Instance = null;
@@ -107,6 +108,13 @@ public class SoundManager : MonoBehaviour {
     public AudioClip minionVoice6;
     public AudioClip minionVoice7;
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            PlayClick();
+        }
+    }
     void Awake()
     {
         if (Instance == null)
@@ -120,12 +128,21 @@ public class SoundManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    public void PlayClick ()
+    {
+        buttonClick.Stop();
+        buttonClick.Play();
+    }
     public void PlaySingle (AudioClip clip)
     {
         efxSource.clip = clip;
         efxSource.Play();
     }
-
+    public void PlayBGM (AudioClip clip)
+    {
+        musicSource.clip = clip;
+        musicSource.Play();
+    }
     public void RandomizeSfx (params AudioClip [] clips)
     {
         int randomIndex = Random.Range(0, clips.Length);
@@ -140,8 +157,4 @@ public class SoundManager : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
