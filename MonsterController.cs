@@ -13,7 +13,9 @@ namespace TVNT
         public GameObject heroSpawnController;
         public Vector3 teleportPosition;
         public Quaternion teleportRotation;
-
+        public GameObject dyingDummy1;
+        public GameObject dyingDummy2;
+        public GameObject dyingDummy3;
 
         private void Start()
         {
