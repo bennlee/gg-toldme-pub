@@ -112,8 +112,16 @@ public class heroTitle : MonoBehaviour {
     {
         int i = Random.Range(0, 8);
         int j = Random.Range(0, 10);
+        string deadTitle;
 
-        string deadTitle = gen + "세대 " + Subject[gen] + "이(가) " + Dead_Modifier[i] + " " + Dead_Verb[j] + "!";
+        if (gen < 25)
+        {
+            deadTitle = gen + "세대 " + Subject[gen] + "이(가) " + Dead_Modifier[i] + " " + Dead_Verb[j] + "!";
+        }
+        else
+        {
+            deadTitle = "";
+        }
         return deadTitle;
     }
 

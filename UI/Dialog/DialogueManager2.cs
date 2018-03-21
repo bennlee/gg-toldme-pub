@@ -64,7 +64,7 @@ public class DialogueManager2 : MonoBehaviour {
         if (currentDialogue.Length == dialogue_iterator+1)
         {
             dialogue_iterator = 0;
-            LevelLoader.GetComponent<LevelLoader>().LoadLevel(4);
+            LevelLoader.GetComponent<LevelLoader>().LoadLevel(5);
         }
         else
         {

@@ -14,6 +14,17 @@ public class MapManager : MonoBehaviour {
     int gemCount;
     int goldCount;
 
+    public GameObject Dialogue;
+    
+    void Awake()
+    {
+        int temp = PlayerPrefs.GetInt("WorldMapCount");
+        if(temp == 0)
+        {
+            Dialogue.SetActive(true);
+        }
+    }
+
     void Start()
     {
         gemCount = PlayerPrefs.GetInt("Gem");
