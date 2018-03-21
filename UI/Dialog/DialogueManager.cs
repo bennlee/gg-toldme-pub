@@ -141,10 +141,6 @@ public class DialogueManager : MonoBehaviour {
                 StartCoroutine("ScenarioEvent2");
                 break;
             case 3:
-                //튜토리얼 봤는지 안봤는지 확인.
-                int temp = PlayerPrefs.GetInt("StartCount");
-                temp++;
-                PlayerPrefs.SetInt("StartCount", temp);
 
                 //worldMap으로 이동
                 SceneManager.LoadScene(2);

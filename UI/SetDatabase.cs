@@ -36,18 +36,10 @@ public class SetDatabase : MonoBehaviour {
 
     public void OnClick()
     { 
-        if (count > 0)
-        {
-            //미니맵 로드
-            SceneManager.LoadScene(2);
-        }
-        else
-        {
             //튜토리얼 로드
             count++;
             PlayerPrefs.SetInt("GameCount", count);
             SceneManager.LoadScene(1);
-        }
     }
     
     void SetData() {
