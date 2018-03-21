@@ -29,6 +29,10 @@ public class DialogueManager2 : MonoBehaviour {
 
     void Start()
     {
+        int temp = PlayerPrefs.GetInt("WorldMapCount");
+        temp++;
+        PlayerPrefs.SetInt("WorldMapCount", temp);
+
         ScreenSetting();
         soundManager = GameObject.FindGameObjectWithTag("SoundManager");
         soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().worldmapBgm);
@@ -64,6 +68,11 @@ public class DialogueManager2 : MonoBehaviour {
         if (currentDialogue.Length == dialogue_iterator+1)
         {
             dialogue_iterator = 0;
+
+            int temp = PlayerPrefs.GetInt("WorldMapCount");
+            temp++;
+            PlayerPrefs.SetInt("WorldMapCount", temp);
+
             LevelLoader.GetComponent<LevelLoader>().LoadLevel(5);
         }
         else

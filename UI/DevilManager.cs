@@ -19,7 +19,7 @@ public class DevilManager : MonoBehaviour {
     public Text t_requireGolds;
     public Text t_totalHero;
     //public Text t_totalVillage;
-
+    
     //local DB instance
     int level;
     int maxSouls;
@@ -30,6 +30,9 @@ public class DevilManager : MonoBehaviour {
     int requireGolds;
     int totalHero;
     int totalVillage;
+    int worldMapCount;
+    int gameCount;
+    int gameTutorial;
 
     SceneManager SceneManager;
     
@@ -115,6 +118,10 @@ public class DevilManager : MonoBehaviour {
         totalGolds = PlayerPrefs.GetInt("TotalGolds");
         requireGolds = PlayerPrefs.GetInt("RequireGolds");
         totalHero = PlayerPrefs.GetInt("TotalHeroCount");
+
+        worldMapCount = PlayerPrefs.GetInt("WorldMapCount");
+        int gameCount = PlayerPrefs.GetInt("GameCount");
+        int gameTutorial = PlayerPrefs.GetInt("GameCount");
     }
 
     //save to local DB
@@ -129,6 +136,10 @@ public class DevilManager : MonoBehaviour {
         PlayerPrefs.SetInt("TotalGolds", totalGolds);
         PlayerPrefs.SetInt("RequireGolds", requireGolds);
         PlayerPrefs.SetInt("TotalHeroCount", totalHero);
+
+        PlayerPrefs.SetInt("WorldMapCount", worldMapCount);
+        PlayerPrefs.SetInt("GameCount", gameCount);
+        PlayerPrefs.SetInt("GameCount", gameTutorial);
     }
 
     public void ResetData()

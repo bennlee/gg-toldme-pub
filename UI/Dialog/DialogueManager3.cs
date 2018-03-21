@@ -34,6 +34,10 @@ public class DialogueManager3 : MonoBehaviour
 
     void Awake()
     {
+        int tutorial_count = PlayerPrefs.GetInt("TutorialCount");
+        tutorial_count++;
+        PlayerPrefs.SetInt("TutorialCount", tutorial_count);
+
         if (temp == 0)
         {
             Invoke("DisableSpawn", 0.9f);
