@@ -13,7 +13,8 @@ public class SetDatabase : MonoBehaviour {
         //Screen.SetResolution(1080, 1920, true);
         Screen.SetResolution((Screen.height * 9) / 16, Screen.height, true);
         count = PlayerPrefs.GetInt("GameCount");
-        PlayerPrefs.SetInt("GameCount", count);
+        
+        //PlayerPrefs.SetInt("GameCount", count);
         //level = PlayerPrefs.GetInt("Level");
         //maxSouls = PlayerPrefs.GetInt("MaxSouls");
         //regainSouls = PlayerPrefs.GetFloat("RegainSouls");
@@ -27,15 +28,14 @@ public class SetDatabase : MonoBehaviour {
 
     void Start()
     {
+        PlayerPrefs.DeleteAll();
+        Debug.Log(count);
         SceneManager sceneManager;
         if (count == 0) { SetData(); }
     }
 
     public void OnClick()
-    {
-        Debug.Log(count);
-        count++;
-        PlayerPrefs.SetInt("GameCount", count);
+    { 
         if (count > 0)
         {
             //미니맵 로드
@@ -44,11 +44,14 @@ public class SetDatabase : MonoBehaviour {
         else
         {
             //튜토리얼 로드
+            count++;
+            PlayerPrefs.SetInt("GameCount", count);
             SceneManager.LoadScene(1);
         }
     }
     
     void SetData() {
+
         int level = 1;
         int maxSouls = 100;
         float regainSouls = 0.8f;
