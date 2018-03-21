@@ -323,12 +323,12 @@ namespace TVNT
         }
         void SetHeroMeetsFather()
         {
-            DBHeroMeetsFather.Add("오랜만입니다.");
-            DBHeroMeetsFather.Add("제가 그 후손입니다.");
-            DBHeroMeetsFather.Add("세배 받으시지요");
-            DBHeroMeetsFather.Add("오랜만이구나!");
-            DBHeroMeetsFather.Add("오오 네가 민수렸다!");
-            DBHeroMeetsFather.Add("왜이리 늦었느냐?");
+            DBHeroMeetsFather.Add("Zzz...");
+            DBHeroMeetsFather.Add("zzz....zzz");
+            DBHeroMeetsFather.Add("Zz..ㅋㅋ..zzZ..");
+            DBHeroMeetsFather.Add("쿨쿨쿨..");
+            DBHeroMeetsFather.Add("여긴..위험하다...");
+            DBHeroMeetsFather.Add("흠냐...");
         }
         void SetHeroChat()
         {
@@ -352,12 +352,18 @@ namespace TVNT
             DBHeroEncounterEnemy.Add("강해보이는데... 도망칠까?");
             DBHeroEncounterEnemy.Add("민식이냐??");
             DBHeroEncounterEnemy.Add("조무래기로군");
-            DBHeroEncounterEnemy.Add("(삐빗)호오! 전투력이 332. 이런 놈도 있었나?");
+            DBHeroEncounterEnemy.Add("(퍼엉)호오! 전투력이 332. 이런 놈도 있었나?");
             DBHeroEncounterEnemy.Add("이..이녀석!(퍼엉!) 내 전투력 스카우터!!");
         }
         void SetFamily()
         {
             DBFamily.Add("잘 다녀와요!");
+            DBFamily.Add("다녀오십쇼!");
+            DBFamily.Add("다녀오세요~");
+            DBFamily.Add("보고싶을 겁니다..");
+            DBFamily.Add("무운을 빈다");
+            DBFamily.Add("고마웠다!!");
+            DBFamily.Add("화이팅!!");
             DBFamily.Add("곧 뒤따라 가겠습니다!");
             DBFamily.Add("할아버지를 구해다오!");
             DBFamily.Add("용돈주고가!");
@@ -366,19 +372,27 @@ namespace TVNT
         {
             DBEasterEggs.Add("화톳불을 찾아서..");
             DBEasterEggs.Add("헤세드로 간다");
+            DBEasterEggs.Add("유다희...");
+            DBEasterEggs.Add("창백한 피...");
         }
         void SetMonsterChat()
         {
             DBMonsterChat.Add("마왕 꼰대놈 같으니라고");
-            DBMonsterChat.Add("형 이건아니야..");
+            DBMonsterChat.Add("형 이건 아니야..");
             DBMonsterChat.Add("야 잘좀 해봐라");
             DBMonsterChat.Add("이게다 마왕때문입니다.");
             DBMonsterChat.Add("일하기 귀찮네");
+            DBMonsterChat.Add("출근이라니!");
+            DBMonsterChat.Add("벌써 퇴근하고 싶다");
+            DBMonsterChat.Add("마왕을 무찔러줘!!");
         }
         void SetMonsterEncounterHero()
         {
             DBMonsterEncounterHero.Add("아버지 이쪽으로 가셨는데?");
             DBMonsterEncounterHero.Add("응~ 이쪽 아니야~");
+            DBMonsterEncounterHero.Add("나약한 용사놈들!");
+            DBMonsterEncounterHero.Add("여기서 살아남을 수 있을까?");
+            DBMonsterEncounterHero.Add("우리 요새는 견고하다.");
         }
         void SetMonsterDeploy()
         {
@@ -392,6 +406,9 @@ namespace TVNT
             DBMonsterDead.Add("퇴근 개꿀띠~");
             DBMonsterDead.Add("칼퇴해야겠다");
             DBMonsterDead.Add("승천각 나오냐..");
+            DBMonsterDead.Add("으악");
+            DBMonsterDead.Add("D의 의지를 이어라..");
+            DBMonsterDead.Add("몬스터 여기 잠들다");
         }
     }
 }
