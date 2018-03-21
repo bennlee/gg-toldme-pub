@@ -107,7 +107,7 @@ namespace TVNT
             if (hoverPrefab.activeSelf)
             {
                 //clone = Instantiate(prefab, hoverPrefab.transform.position, Quaternion.identity);
-                monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, Quaternion.identity);
+                monsterController.GetComponent<MonsterController>().DeployMonster(prefab, hoverPrefab.transform.position, hoverPrefab.transform.rotation);
                 //clone.SetActive(true);
             }
 
