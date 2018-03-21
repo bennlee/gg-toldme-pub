@@ -17,7 +17,14 @@ namespace TVNT
             {
                 Debug.Log("Player.");
                 //플레이어에게 데미지
-                collision.transform.GetComponent<TVNTCharacterController>().lives -= 40;
+                if(collision.transform.GetComponent<TVNTCharacterController>().lives > 20)
+                {
+                    collision.transform.GetComponent<TVNTCharacterController>().lives -= 20;
+                }
+                else
+                {
+                    collision.transform.GetComponent<TVNTCharacterController>().CharacterDead();
+                }
                 GameObject.Destroy(gameObject);
 
             }
