@@ -3,80 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SetDatabase : MonoBehaviour {
+public class SetDatabase : MonoBehaviour
+{
 
-    int count;
-
-    // 게임 처음 시작하는 사람들은 Data를 모두 초기값으로 설정해준다.
-    void Awake () {
-
-        //Screen.SetResolution(1080, 1920, true);
+    void Awake()
+    {
         Screen.SetResolution((Screen.height * 9) / 16, Screen.height, true);
-        count = PlayerPrefs.GetInt("GameCount");
-        
-        //PlayerPrefs.SetInt("GameCount", count);
-        //level = PlayerPrefs.GetInt("Level");
-        //maxSouls = PlayerPrefs.GetInt("MaxSouls");
-        //regainSouls = PlayerPrefs.GetFloat("RegainSouls");
-        //monsAttack = PlayerPrefs.GetFloat("MonsAttack");
-        //monsShield = PlayerPrefs.GetFloat("MonsShield");
-        //totalGolds = PlayerPrefs.GetInt("TotalGolds");
-        //requireGolds = PlayerPrefs.GetInt("RequireGolds");
-        //totalHero = PlayerPrefs.GetInt("TotalHero");
-        //totalVillage = PlayerPrefs.GetInt("TotalVillage");
     }
 
     void Start()
     {
-        PlayerPrefs.DeleteAll();
-        Debug.Log(count);
+        //디버그가 필요할 때 실행. 모든 키값 삭제.
+        //PlayerPrefs.DeleteAll();
         SceneManager sceneManager;
-        if (count == 0) { SetData(); }
     }
 
     public void OnClick()
-    { 
-            //튜토리얼 로드
-            count++;
-            PlayerPrefs.SetInt("GameCount", count);
+    {
+        //SetData()를 한 적이 있다면
+        if (PlayerPrefs.HasKey("StartTutorial"))
+        {
+            //맵으로 이동
+            SceneManager.LoadScene(2);
+        }
+        else
+        {
+            //데이터 생성 및 저장
+            SetData();
+            PlayerPrefs.Save();
+
+            //시나리오로 이동
             SceneManager.LoadScene(1);
+        }
     }
-    
-    void SetData() {
 
-        int level = 1;
-        int maxSouls = 100;
-        float regainSouls = 0.8f;
-        float monsAttack = 5;
-        float monsShield = 5;
-        int totalGolds = 0;
-        int requireGolds = 3;
-        int totalHero = 0;
-        int totalVillage = 0;
-        int gemCount = 0;
-
-        int worldMapCount = 0;
-        int gameCount = 0;
-        int tutorialCount = 0;
-
-        PlayerPrefs.SetInt("Level", level);
-            PlayerPrefs.SetInt("MaxSouls", maxSouls);
-            PlayerPrefs.SetFloat("RegainSouls", regainSouls);
-            PlayerPrefs.SetFloat("MonsAttack", monsAttack);
-            PlayerPrefs.SetFloat("MonsShield", monsShield);
-            PlayerPrefs.SetInt("TotalGolds", totalGolds);
-            PlayerPrefs.SetInt("RequireGolds", requireGolds);
-            PlayerPrefs.SetInt("TotalHero ", totalHero);
-            PlayerPrefs.SetInt("TotalVillage ", totalVillage);
-            PlayerPrefs.SetInt("Gem", gemCount);
-
-        //게임 시작 횟수
-        PlayerPrefs.SetInt("GameCount", gameCount);
-
-        //월드맵 튜토리얼
-        PlayerPrefs.SetInt("WorldMapCount", worldMapCount);
-
-        //게임 튜토리얼
-        PlayerPrefs.SetInt("TutorialCount", tutorialCount);
+    void SetData()
+    {
+        //인게임 초깃값
+        PlayerPrefs.SetInt("Level", 1);
+        PlayerPrefs.SetInt("MaxSouls", 100);
+        PlayerPrefs.SetFloat("RegainSouls", 0.8f);
+        PlayerPrefs.SetFloat("MonsterStat", -100);
+        PlayerPrefs.SetInt("TotalGolds", 0);
+        PlayerPrefs.SetInt("RequireGolds", 3);
+        PlayerPrefs.SetInt("TotalHero", 0);
+        PlayerPrefs.SetInt("Gem", 0);
+        //시작 듀토리얼 수행 유무
+        PlayerPrefs.SetInt("StartTutorial", 0);
     }
 }

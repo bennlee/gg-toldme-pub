@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class DialogueManager : MonoBehaviour {
+public class DialogueManager : MonoBehaviour
+{
 
     public Sprite background2_Image;
     public Sprite background3_Image;
@@ -13,42 +14,50 @@ public class DialogueManager : MonoBehaviour {
     public Image characterImage;
     public Text nameText;
     public Text dialogueText;
-    
+    public GameObject dialoguePanel;
+    Button nextButton;
+
     GameObject dialogueFlow;
     Dialogue[] currentDialogue;
 
     int dialogue_iterator = 0;
     int scene_iterator;
+    private int nowStory = 1;
 
     public Animator animator;
 
     float temp = 0;
 
+    public GameObject soundManager;
     SceneManager SceneManager;
 
     void Awake()
     {
+        animator = dialoguePanel.GetComponent<Animator>();
+        animator.SetBool("isOpen", true);
         dialogueFlow = GameObject.Find("DialogueFlow");
+        nextButton = dialoguePanel.GetComponent<Button>();
         currentDialogue = dialogueFlow.GetComponent<DialogueFlow>().Scene1Dialogue;
     }
 
     void Start()
     {
         ScreenSetting();
+
         nowStory = 1;
         soundManager = GameObject.FindGameObjectWithTag("SoundManager");
         soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().story1Bgm);
         soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorOpen);
     }
 
-    public GameObject iteratorLock;
     void ScreenSetting()
     {
-        iteratorLock.GetComponent<Button>().interactable = false;
+        nextButton.interactable = false;
         characterImage.sprite = currentDialogue[dialogue_iterator].characterSpriteImage;
         nameText.text = currentDialogue[dialogue_iterator].name;
         StopAllCoroutines();
         StartCoroutine(TypeSentence(currentDialogue[dialogue_iterator].speech));
+        nextButton.interactable = true;
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -59,19 +68,11 @@ public class DialogueManager : MonoBehaviour {
             dialogueText.text += letter;
             yield return new WaitForSeconds(0.025f);
         }
-        iteratorLock.GetComponent<Button>().interactable = true;
     }
-    public GameObject soundManager;
-    void FixedUpdate()
-    {
-        //Debug.Log("conversation");
-    }
-    private int nowStory = 1;
-    
+
     public void NextSpeech()
     {
-        //Debug.Log("next speech");
-        if (currentDialogue.Length == dialogue_iterator+1)
+        if (currentDialogue.Length == dialogue_iterator + 1)
         {
             nowStory++;
             dialogue_iterator = 0;
@@ -81,7 +82,7 @@ public class DialogueManager : MonoBehaviour {
             {
                 soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().story2Bgm);
             }
-            else if (nowStory ==3)
+            else if (nowStory == 3)
             {
                 soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().story3Bgm);
             }
@@ -89,7 +90,7 @@ public class DialogueManager : MonoBehaviour {
         else
         {
             dialogue_iterator++;
-            
+
             if (dialogue_iterator == 2 && nowStory == 1)
             {
                 soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().story1DoorClose);
@@ -129,7 +130,8 @@ public class DialogueManager : MonoBehaviour {
 
     void NextScene()
     {
-        //Debug.Log("next scene");
+        nextButton.interactable = false;
+        animator.SetBool("isOpen", false);
         scene_iterator++;
 
         switch (scene_iterator)
@@ -141,8 +143,9 @@ public class DialogueManager : MonoBehaviour {
                 StartCoroutine("ScenarioEvent2");
                 break;
             case 3:
-
-                //worldMap으로 이동
+                //튜토리얼을 수행했다는 것을 알려주는 키값
+                PlayerPrefs.SetInt("StartTutorial", 0);
+                PlayerPrefs.Save();
                 SceneManager.LoadScene(2);
                 break;
         }
@@ -151,7 +154,7 @@ public class DialogueManager : MonoBehaviour {
     IEnumerator ScenarioEvent1()
     {
         //번쩍번쩍 효과
-        background.GetComponent<Image>().color = new Color(0,0,0);
+        background.GetComponent<Image>().color = new Color(0, 0, 0);
         yield return new WaitForSeconds(.2f);
         background.GetComponent<Image>().color = new Color(255, 255, 255);
         yield return new WaitForSeconds(.2f);
@@ -178,7 +181,8 @@ public class DialogueManager : MonoBehaviour {
             temp += 1;
             yield return 1.5f;
         }
-        
+
+        animator.SetBool("isOpen", true);
         ScreenSetting();
     }
 
@@ -202,7 +206,15 @@ public class DialogueManager : MonoBehaviour {
             yield return 1.0f;
         }
 
+        animator.SetBool("isOpen", true);
         ScreenSetting();
+    }
+
+    public void SkipButtonOnClick()
+    {
+        PlayerPrefs.SetInt("StartTutorial", 0);
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(2);
     }
 
 }

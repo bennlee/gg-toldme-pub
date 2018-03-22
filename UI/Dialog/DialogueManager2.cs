@@ -4,21 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class DialogueManager2 : MonoBehaviour {
+public class DialogueManager2 : MonoBehaviour
+{
 
     public Image characterImage;
     public Text nameText;
     public Text dialogueText;
-    
     GameObject dialogueFlow;
     Dialogue[] currentDialogue;
 
+    public GameObject dialoguePanel;
     public GameObject LevelLoader;
 
     int dialogue_iterator = 0;
-    
+    public GameObject skipButton;
+
     float temp = 0;
 
+    public GameObject soundManager;
     SceneManager SceneManager;
 
     void Awake()
@@ -29,16 +32,12 @@ public class DialogueManager2 : MonoBehaviour {
 
     void Start()
     {
-        int temp = PlayerPrefs.GetInt("WorldMapCount");
-        temp++;
-        PlayerPrefs.SetInt("WorldMapCount", temp);
-
         ScreenSetting();
         soundManager = GameObject.FindGameObjectWithTag("SoundManager");
         soundManager.GetComponent<SoundManager>().PlayBGM(soundManager.GetComponent<SoundManager>().worldmapBgm);
         soundManager.GetComponent<SoundManager>().PlaySingle(soundManager.GetComponent<SoundManager>().worldmapPaper);
     }
-    public GameObject soundManager;
+
     void ScreenSetting()
     {
         characterImage.sprite = currentDialogue[dialogue_iterator].characterSpriteImage;
@@ -61,18 +60,13 @@ public class DialogueManager2 : MonoBehaviour {
     {
         //Debug.Log("conversation");
     }
-    
+
     public void NextSpeech()
     {
         //Debug.Log("next speech");
-        if (currentDialogue.Length == dialogue_iterator+1)
+        if (currentDialogue.Length == dialogue_iterator + 1)
         {
             dialogue_iterator = 0;
-
-            int temp = PlayerPrefs.GetInt("WorldMapCount");
-            temp++;
-            PlayerPrefs.SetInt("WorldMapCount", temp);
-
             LevelLoader.GetComponent<LevelLoader>().LoadLevel(5);
         }
         else
@@ -80,6 +74,11 @@ public class DialogueManager2 : MonoBehaviour {
             dialogue_iterator++;
             ScreenSetting();
         }
+    }
+
+    public void Skip()
+    {
+        LevelLoader.GetComponent<LevelLoader>().LoadLevel(5);
     }
 
 }
