@@ -137,10 +137,10 @@ public class DialogueManager : MonoBehaviour
         switch (scene_iterator)
         {
             case 1:
-                StartCoroutine("ScenarioEvent1");
+                ScenarioEvent1();
                 break;
             case 2:
-                StartCoroutine("ScenarioEvent2");
+                ScenarioEvent2();
                 break;
             case 3:
                 //튜토리얼을 수행했다는 것을 알려주는 키값
@@ -151,61 +151,20 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    IEnumerator ScenarioEvent1()
+    void ScenarioEvent1()
     {
-        //번쩍번쩍 효과
-        background.GetComponent<Image>().color = new Color(0, 0, 0);
-        yield return new WaitForSeconds(.2f);
-        background.GetComponent<Image>().color = new Color(255, 255, 255);
-        yield return new WaitForSeconds(.2f);
-        background.GetComponent<Image>().color = new Color(0, 0, 0);
-        yield return new WaitForSeconds(.2f);
-        background.GetComponent<Image>().color = new Color(255, 255, 255);
-        yield return new WaitForSeconds(.2f);
-        temp = 255;
-
-        //어두워졌다가
-        while (temp > 0)
-        {
-            background.GetComponent<Image>().color = new Color(temp / 255f, temp / 255f, temp / 255f);
-            temp -= 1;
-            yield return 1.55f;
-        }
-
-        //배경 교체 후 밝아진다
         background.sprite = background2_Image;
         currentDialogue = dialogueFlow.GetComponent<DialogueFlow>().Scene2Dialogue;
-        while (temp < 255f)
-        {
-            background.GetComponent<Image>().color = new Color(temp / 255f, temp / 255f, temp / 255f);
-            temp += 1;
-            yield return 1.5f;
-        }
-
+       
         animator.SetBool("isOpen", true);
         ScreenSetting();
     }
 
-    IEnumerator ScenarioEvent2()
+    void ScenarioEvent2()
     {
-        //어두워졌다가
-        while (temp > 0)
-        {
-            background.GetComponent<Image>().color = new Color(temp / 255f, temp / 255f, temp / 255f);
-            temp -= 1;
-            yield return 1.05f;
-        }
-
-        //배경 교체 후 밝아진다
         background.sprite = background3_Image;
         currentDialogue = dialogueFlow.GetComponent<DialogueFlow>().Scene3Dialogue;
-        while (temp < 255f)
-        {
-            background.GetComponent<Image>().color = new Color(temp / 255f, temp / 255f, temp / 255f);
-            temp += 1;
-            yield return 1.0f;
-        }
-
+        
         animator.SetBool("isOpen", true);
         ScreenSetting();
     }
