@@ -157,4 +157,27 @@ public class SoundManager : MonoBehaviour {
 		
 	}
 	
+    public void SkillDragonPush()
+    {
+        StartCoroutine(SkillDragon());
+    }
+    public void SkillLaserPush()
+    {
+        StartCoroutine(SkillLaser());
+    }
+    public IEnumerator SkillDragon()
+    {
+        efxSource.PlayOneShot(skillDragon1);
+        yield return new WaitForSeconds(0.4f);
+        efxSource.PlayOneShot(skillDragon2);
+        yield return new WaitForSeconds(0.2f);
+        efxSource.PlayOneShot(story2Crowd);
+    }
+
+    public IEnumerator SkillLaser()
+    {
+        efxSource.PlayOneShot(skillLaser1);
+        yield return new WaitForSeconds(0.3f);
+        efxSource.PlayOneShot(skillLaser2);
+    }
 }

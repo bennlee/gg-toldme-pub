@@ -7,6 +7,48 @@ namespace TVNT
 {
     public class SpeechController : MonoBehaviour
     {
+        public AudioSource efxSource;
+        public AudioSource speechSource;
+
+        public float lowPitchRange = .95F;
+        public float highPitchRange = 1.05f;
+
+        public AudioClip[] speech = new AudioClip[7];
+        public AudioClip attackSound1;
+        public AudioClip attackSound2;
+        public AudioClip attackSound3;
+
+        public AudioClip voice;
+
+        public void RandomizeSfx(params AudioClip[] clips)
+        {
+            int randomIndex = Random.Range(0, clips.Length);
+
+            speechSource.clip = clips[randomIndex];
+            speechSource.Play();
+        }
+
+        public void PlayVoice()
+        {
+            efxSource.PlayOneShot(voice);
+        }
+
+        public void PlayAttackSound(int skilltype)
+        {
+            if(skilltype == 0)
+            {
+                efxSource.PlayOneShot(attackSound1);
+            }
+            if (skilltype == 1)
+            {
+                efxSource.PlayOneShot(attackSound2);
+            }
+            if (skilltype == 2)
+            {
+                efxSource.PlayOneShot(attackSound3);
+            }
+        }
+
         public enum SpeechType
         {
             HEROOUTOFDUNGEON,               //용사 던전 밖
@@ -213,6 +255,7 @@ namespace TVNT
                         break;
                 }
                 transform.GetComponent<TextMesh>().text = currentText;
+                RandomizeSfx(speech);
                 yield return new WaitForSeconds(2.5f);
                 transform.GetComponent<TextMesh>().text = "";
                 yield return new WaitForSeconds(1.0f);
@@ -239,13 +282,24 @@ namespace TVNT
             SetMonsterDead();
         }
 
+        GameObject soundManager;
         // Use this for initialization
         void Start()
         {
+            //efxSource = GameObject.FindWithTag("Pattern").GetComponent<AudioSource>();
+            //efxSource = GameObject.FindWithTag("Pattern").GetComponent<AudioSource>();
             parent = transform.parent.gameObject;
             mainCamera = GameObject.Find("MainCamera");
             hero = gameObject.transform.parent.gameObject;
             StartCoroutine("Speech");
+            soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+            speech[0] = soundManager.GetComponent<SoundManager>().minionVoice1;
+            speech[1] = soundManager.GetComponent<SoundManager>().minionVoice2;
+            speech[2] = soundManager.GetComponent<SoundManager>().minionVoice3;
+            speech[3] = soundManager.GetComponent<SoundManager>().minionVoice4;
+            speech[4] = soundManager.GetComponent<SoundManager>().minionVoice5;
+            speech[5] = soundManager.GetComponent<SoundManager>().minionVoice6;
+            speech[6] = soundManager.GetComponent<SoundManager>().minionVoice7;
         }
 
         void OnEnable()
