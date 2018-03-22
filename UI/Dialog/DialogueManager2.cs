@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class DialogueManager2 : MonoBehaviour
 {
-
     public Image characterImage;
     public Text nameText;
     public Text dialogueText;
@@ -78,7 +77,7 @@ public class DialogueManager2 : MonoBehaviour
 
     public void Skip()
     {
-        LevelLoader.GetComponent<LevelLoader>().LoadLevel(5);
+        LevelLoader.GetComponent<LevelLoader>().LoadLevel(2);
     }
 
 }

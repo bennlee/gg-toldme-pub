@@ -20,6 +20,7 @@ public class SetDatabase : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("delete start");
         //SetData()를 한 적이 있다면
         if (PlayerPrefs.HasKey("StartTutorial"))
         {
@@ -36,7 +37,7 @@ public class SetDatabase : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
-
+    
     void SetData()
     {
         //인게임 초깃값

@@ -23,6 +23,7 @@ public class DialogueManager3 : MonoBehaviour
     public GameObject heroSpawnController;
     public GameObject monsterController;
     public GameObject dialogPanel;
+    public GameObject dialogPanelButton;
     public GameObject tutorialCurser;
     public Text tutorial;
     public GameObject tutorialBox;
@@ -35,8 +36,8 @@ public class DialogueManager3 : MonoBehaviour
 
     void Awake()
     {
-        Invoke("DisableSpawn", 0.9f);
-        dialogPanel.SetActive(true);
+        //Invoke("DisableSpawn", 0.9f);
+        dialogPanelButton.SetActive(true);
         dialogueFlow = GameObject.Find("DialogueFlow");
         currentDialogue = dialogueFlow.GetComponent<DialogueFlow3>().Scene1Dialogue;
         animator.SetBool("isOpen", true);
@@ -52,6 +53,11 @@ public class DialogueManager3 : MonoBehaviour
         ScreenSetting();
     }
 
+    void Start()
+    {
+        PlayerPrefs.SetInt("GameTutorial", 0);   
+    }
+
     void DisableSpawn()
     {
         heroSpawnController.SetActive(false);
@@ -59,15 +65,14 @@ public class DialogueManager3 : MonoBehaviour
 
     void ScreenSetting()
     {
-        dialogPanel.GetComponent<Button>().interactable = false;
+        dialogPanelButton.GetComponent<Button>().interactable = false;
 
-        Debug.Log(dialogue_iterator);
         characterImage.sprite = currentDialogue[dialogue_iterator].characterSpriteImage;
         nameText.text = currentDialogue[dialogue_iterator].name;
         StopAllCoroutines();
         StartCoroutine(TypeSentence(currentDialogue[dialogue_iterator].speech));
 
-        dialogPanel.GetComponent<Button>().interactable = true;
+        dialogPanelButton.GetComponent<Button>().interactable = true;
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -114,6 +119,8 @@ public class DialogueManager3 : MonoBehaviour
     {
         //Debug.Log("next scene");
         scene_iterator++;
+
+        dialogPanelButton.GetComponent<Button>().interactable = false;
 
         switch (scene_iterator)
         {
@@ -169,17 +176,18 @@ public class DialogueManager3 : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         tutorialCurser.SetActive(false);
 
-        tutorial.text = "용사들은 동서남북의\n네 방향에서 들어옵니다.";
-        yield return new WaitForSeconds(3.0f);
         tutorial.text = "스와이프로 화면을 확대하고\n이동할 수 있습니다.";
+        yield return new WaitForSeconds(3.0f);
+
+        tutorial.text = "용사들은 동서남북의\n네 방향에서 들어옵니다.";
         yield return new WaitForSeconds(3.0f);
         tutorial.text = "용사들이 마왕이 있는 방에\n들어가면 패배입니다.";
         yield return new WaitForSeconds(3.0f);
         tutorial.text = "낮에는 스킬을 이용하고,\n밤에는 몬스터를 소환하세요.";
         yield return new WaitForSeconds(3.0f);
-        tutorial.text = "최후의 용사가 수명이 다하거나\n 죽으면 게임 승리입니다.";
-        yield return new WaitForSeconds(3.0f);
         tutorial.text = "밤에 몬스터를 소환하면\n아침에 출근합니다.";
+        yield return new WaitForSeconds(3.0f);
+        tutorial.text = "최후의 용사가 수명이 다하거나\n 죽으면 게임 승리입니다.";
         yield return new WaitForSeconds(3.0f);
         tutorial.text = "몬스터를 소환할 수 있는 시간은\n게임 시작 5초 전 까지입니다.";
         yield return new WaitForSeconds(3.0f);
@@ -187,6 +195,8 @@ public class DialogueManager3 : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         tutorial.text = "준비되셨나요?\n자, 이제 시작합니다!!";
         yield return new WaitForSeconds(2.0f);
+
+
         SceneManager.LoadScene(4);
     }
 

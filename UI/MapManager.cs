@@ -16,14 +16,14 @@ public class MapManager : MonoBehaviour {
     int temp;
 
     public GameObject Credit;
-
     public GameObject Dialogue;
     
     void Awake()
     {
-        temp = PlayerPrefs.GetInt("WorldMapCount");
-        if(temp == 0)
+        if(!PlayerPrefs.HasKey("MapTutorial"))
         {
+            PlayerPrefs.SetInt("MapTutorial", 0);
+            PlayerPrefs.Save();
             Dialogue.SetActive(true);
         }
     }
@@ -39,15 +39,13 @@ public class MapManager : MonoBehaviour {
     public void Palace()
     {
         Debug.Log("Loading Palace...");
-        temp++;
-        PlayerPrefs.SetInt("WorldMapCount", temp);
         SceneManager.LoadScene(3);
     }
 
     public void Stage1()
     {
         Debug.Log("Loading Stage...");
-        PlayerPrefs.SetInt("WorldMapCount", temp);
+
         LevelLoader.GetComponent<LevelLoader>().LoadLevel(4);
     }
 
@@ -91,7 +89,9 @@ public class MapManager : MonoBehaviour {
 
     public void Quit()
     {
-        //Application.Quit();
+        Application.Quit();
     }
     
+
+
 }

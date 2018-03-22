@@ -293,13 +293,17 @@ namespace TVNT
             hero = gameObject.transform.parent.gameObject;
             StartCoroutine("Speech");
             soundManager = GameObject.FindGameObjectWithTag("SoundManager");
-            speech[0] = soundManager.GetComponent<SoundManager>().minionVoice1;
-            speech[1] = soundManager.GetComponent<SoundManager>().minionVoice2;
-            speech[2] = soundManager.GetComponent<SoundManager>().minionVoice3;
-            speech[3] = soundManager.GetComponent<SoundManager>().minionVoice4;
-            speech[4] = soundManager.GetComponent<SoundManager>().minionVoice5;
-            speech[5] = soundManager.GetComponent<SoundManager>().minionVoice6;
-            speech[6] = soundManager.GetComponent<SoundManager>().minionVoice7;
+            if(soundManager != null)
+            {
+                speech[0] = soundManager.GetComponent<SoundManager>().minionVoice1;
+                speech[1] = soundManager.GetComponent<SoundManager>().minionVoice2;
+                speech[2] = soundManager.GetComponent<SoundManager>().minionVoice3;
+                speech[3] = soundManager.GetComponent<SoundManager>().minionVoice4;
+                speech[4] = soundManager.GetComponent<SoundManager>().minionVoice5;
+                speech[5] = soundManager.GetComponent<SoundManager>().minionVoice6;
+                speech[6] = soundManager.GetComponent<SoundManager>().minionVoice7;
+
+            }
         }
 
         void OnEnable()
