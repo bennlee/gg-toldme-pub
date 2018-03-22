@@ -33,7 +33,7 @@ public class TouchCamera : MonoBehaviour {
 			if (oldTouchPositions[1] == null) {
 				oldTouchPositions[0] = Input.GetTouch(0).position;
 				oldTouchPositions[1] = Input.GetTouch(1).position;
-				oldTouchVector = (Vector2)((oldTouchPositions[0] - oldTouchPositions[1])*10);
+				oldTouchVector = (Vector2)((oldTouchPositions[0] - oldTouchPositions[1])*3);
 				oldTouchDistance = oldTouchVector.magnitude;
 			}
 			else {
