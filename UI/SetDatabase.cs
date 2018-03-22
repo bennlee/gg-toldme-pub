@@ -14,7 +14,7 @@ public class SetDatabase : MonoBehaviour
     void Start()
     {
         //디버그가 필요할 때 실행. 모든 키값 삭제.
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         SceneManager sceneManager;
     }
 
